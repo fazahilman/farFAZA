@@ -91,3 +91,6 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .jcard{background:#fff;border:1px solid #E7DCEB;border-radius:14px;overflow:hidden}
 .jcard img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .jb{padding:18px}.jb h3{margin:4px 0 8px}
+
+.jprice{margin:8px 0}.jprice b{font-family:'EB Garamond',serif;font-size:1.6rem;color:#7A2E78;display:block;line-height:1.1}.jprice small{color:#6b5a73}
+.jbtn{display:flex;gap:8px;flex-wrap:wrap}
