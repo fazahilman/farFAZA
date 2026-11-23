@@ -94,3 +94,21 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 
 .jprice{margin:8px 0}.jprice b{font-family:'EB Garamond',serif;font-size:1.6rem;color:#7A2E78;display:block;line-height:1.1}.jprice small{color:#6b5a73}
 .jbtn{display:flex;gap:8px;flex-wrap:wrap}
+
+.jhead{text-align:center;max-width:720px;margin:0 auto 28px}.jhead h2{margin:.2em 0}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:24px}
+.dcard{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 14px 40px rgba(36,17,47,.12);display:flex;flex-direction:column}
+.dtop{background-size:cover;background-position:center;color:#fff;padding:24px 22px 20px;min-height:230px;display:flex;flex-direction:column;justify-content:flex-end}
+.dbadge{align-self:flex-start;background:#E2BE6A;color:#24112F;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:12px}
+.dtop h3{font-family:'EB Garamond',serif;font-size:2rem;line-height:1.05;margin:0 0 6px;color:#fff}.dtop p{margin:0;opacity:.9}
+.dinfo{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:2px dashed #E7DCEB}
+.dinfo div{padding:14px 16px;border-right:1px solid #F0E8F3}.dinfo div:last-child{border:0}
+.dinfo small,.hrow small{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#7b6b84}
+.dinfo b{font-size:.95rem;color:#24112F}
+.dbody{padding:18px 20px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.pk{background:#FBF6FD;border:1px solid #EADFEF;border-radius:14px;padding:10px 12px}
+.pkn{display:inline-block;background:#7A2E78;color:#fff;font-weight:600;font-size:.8rem;padding:4px 12px;border-radius:999px;margin-bottom:8px}
+.hrow{display:flex;align-items:center;gap:10px;padding:5px 0;border-top:1px solid #F0E8F3}.hrow:first-of-type{border-top:0}
+.hrow small{min-width:96px}.hrow b{flex:1;color:#24112F}.hrow span{color:#C99A2E;letter-spacing:1px}
+.bonus{background:#FFF3D6;border-radius:12px;padding:10px 12px;font-weight:600;color:#5b4310;font-size:.9rem}
+.dnote{color:#6b5a73;font-size:.85rem;margin:0}.btn.wide{display:block;text-align:center;margin-top:auto}
