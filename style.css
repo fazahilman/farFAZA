@@ -86,3 +86,8 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .ncard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#EFE6F2}
 .ncard div{padding:16px}.ncard h3{font-size:1.05rem;line-height:1.35;margin:8px 0}
 .ntag{font-size:.75rem;font-weight:600;color:#7A2E78;text-transform:uppercase;letter-spacing:.06em}.ncard small{color:#6b5a73}
+
+.jgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.jcard{background:#fff;border:1px solid #E7DCEB;border-radius:14px;overflow:hidden}
+.jcard img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.jb{padding:18px}.jb h3{margin:4px 0 8px}
