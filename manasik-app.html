@@ -1,0 +1,1012 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Latihan Manasik Umrah</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<style>
+/* Concept: a training ground. The pilgrim is steered by the learner; the page counts rounds and corrects mistakes the way a muthawwif would. Same marble palette as the watch-only animation; green is reserved for the real green lights, red only for corrections. */
+:root{
+  --bg:#E6EAEC; --surface:#F5F7F8; --ink:#13232B; --muted:#4F626B; --line:#C2CCD1;
+  --accent:#17607A; --on-accent:#FFFFFF; --gold:#B8892B; --gold-ink:#7A5712;
+  --signal:#1FBF6B; --stage:#DCE3E6; --stage2:#C9D3D8; --kaaba:#17171C; --marble:#F7F9F9;
+  --pilgrim:#FFFFFF; --edge:#2B3A42; --hill:#BFCAD0; --hill2:#AEBBC2; --skin:#C99669; --hair:#2A211D;
+  --bad:#B3261E; --on-bad:#FFFFFF; --good:#0E6A43; --on-good:#FFFFFF; --tip:#8A5A00; --on-tip:#FFFFFF;
+  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'Source Sans 3',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-ar:'Amiri','Noto Naskh Arabic','Traditional Arabic',serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A131A; --surface:#111F29; --ink:#E7EFF2; --muted:#9AAEB8; --line:#27404E;
+    --accent:#6BC1DF; --on-accent:#06222D; --gold:#D6AC50; --gold-ink:#E2BE6C;
+    --signal:#3EE08C; --stage:#0E1A23; --stage2:#1A2E3A; --kaaba:#050507; --marble:#CBD6DA;
+    --pilgrim:#F4F7F8; --edge:#0A131A; --hill:#1B2D38; --hill2:#243B48; --skin:#C99669; --hair:#7B5C49;
+    --bad:#FF9A8A; --on-bad:#3A0B06; --good:#46E394; --on-good:#04301B; --tip:#F0C060; --on-tip:#2E2000;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A131A; --surface:#111F29; --ink:#E7EFF2; --muted:#9AAEB8; --line:#27404E;
+  --accent:#6BC1DF; --on-accent:#06222D; --gold:#D6AC50; --gold-ink:#E2BE6C;
+  --signal:#3EE08C; --stage:#0E1A23; --stage2:#1A2E3A; --kaaba:#050507; --marble:#CBD6DA;
+  --pilgrim:#F4F7F8; --edge:#0A131A; --hill:#1B2D38; --hill2:#243B48; --skin:#C99669; --hair:#7B5C49;
+  --bad:#FF9A8A; --on-bad:#3A0B06; --good:#46E394; --on-good:#04301B; --tip:#F0C060; --on-tip:#2E2000;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background:var(--bg); color:var(--ink); font:400 16px/1.55 var(--font-body);
+  padding-block:20px 36px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.wrap{max-width:1040px;margin:0 auto;display:grid;gap:14px}
+h1{font:700 clamp(1.7rem,4.5vw,2.5rem)/1.05 var(--font-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.sub{margin:6px 0 0;color:var(--muted);max-width:66ch}
+button{font:inherit;color:inherit;cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip,.btn{
+  min-height:44px;padding:8px 16px;border-radius:10px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink);font-weight:600;
+}
+.chip{font-family:var(--font-display);font-size:1.02rem}
+.chip:hover,.btn:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"],.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chip.done::after{content:" ✓";color:var(--signal)}
+.chip[aria-pressed="true"].done::after{color:var(--on-accent)}
+.chip.ghost{margin-left:auto;font-family:var(--font-body);font-size:.95rem;font-weight:600;background:transparent}
+.chip:focus-visible,.btn:focus-visible,.pick:focus-visible,.joy:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.big{font-family:var(--font-display);font-size:1.2rem;min-height:54px;padding:10px 30px;border-radius:14px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.stage{position:relative;background:var(--stage);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0;user-select:none;-webkit-user-select:none}
+canvas{display:block;width:100%;touch-action:pan-y}
+.hud{position:absolute;top:10px;left:10px;z-index:2;pointer-events:none;display:grid;gap:4px;min-width:112px;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 14px}
+.hud .hl{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.hud b{font:700 1.75rem/1 var(--font-display);font-variant-numeric:tabular-nums}
+.bar{display:block;height:5px;border-radius:3px;background:var(--stage2);overflow:hidden}
+.bar u{display:block;height:100%;width:0;background:var(--accent);text-decoration:none}
+.toast{position:absolute;left:50%;top:76px;transform:translateX(-50%);z-index:3;pointer-events:none;
+  max-width:min(520px,calc(100% - 24px));padding:10px 16px;border-radius:12px;font-weight:600;font-size:.96rem;line-height:1.35;
+  background:var(--ink);color:var(--bg);box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
+.toast.bad{background:var(--bad);color:var(--on-bad)}
+.toast.good{background:var(--good);color:var(--on-good)}
+.toast.tip{background:var(--tip);color:var(--on-tip)}
+.joy{position:absolute;left:max(14px,env(safe-area-inset-left,0px));bottom:14px;z-index:3;width:116px;height:116px;border-radius:50%;
+  background:color-mix(in srgb,var(--surface) 78%,transparent);border:2px solid var(--line);touch-action:none;display:none}
+.knob{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:var(--accent);opacity:.92}
+.acts{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:14px;z-index:3;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.acts .btn{box-shadow:0 2px 10px rgba(0,0,0,.18)}
+@media (pointer:coarse),(max-width:700px){.joy{display:block}}
+.ovl{position:absolute;inset:0;z-index:5;display:grid;place-items:center;align-content:center;gap:16px;padding:20px;text-align:center;
+  background:color-mix(in srgb,var(--stage) 86%,transparent);overflow:auto}
+.ovl h2{margin:0}
+.ovl p{margin:0;max-width:52ch;color:var(--muted)}
+.picks{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.pick{display:grid;gap:6px;justify-items:center;padding:12px 18px;border-radius:14px;border:2px solid var(--line);background:var(--surface);min-width:150px}
+.pick:hover{border-color:var(--accent)}
+.pick canvas{width:96px;height:96px;touch-action:auto}
+.pick b{font:700 1.1rem var(--font-display)}
+.pick span{font-size:.85rem;color:var(--muted)}
+.sumlist{list-style:none;margin:0;padding:0;display:grid;gap:6px;text-align:left;max-width:56ch;width:100%}
+.sumlist li{padding:8px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font-size:.95rem}
+.keys{margin:0;color:var(--muted);font-size:.92rem;max-width:90ch}
+.info{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;min-width:0;display:grid;gap:8px;align-content:start}
+.kicker{margin:0;font-size:.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+h2{margin:0;font:700 1.3rem/1.2 var(--font-display);text-wrap:balance}
+h3{margin:0;font:700 1.05rem/1.2 var(--font-display)}
+.detail{margin:0;max-width:62ch}
+.ar{margin:0;font:400 1.7rem/1.9 var(--font-ar);direction:rtl;text-align:right;color:var(--gold-ink)}
+.tr{margin:0;color:var(--muted)}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.log{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:220px;overflow:auto}
+.log li{display:flex;gap:8px;align-items:baseline;font-size:.93rem;line-height:1.35}
+.log .tg{flex:none;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:6px}
+.tg.bad{background:var(--bad);color:var(--on-bad)}
+.tg.ok{background:var(--good);color:var(--on-good)}
+.tg.tip{background:var(--tip);color:var(--on-tip)}
+.empty{color:var(--muted);font-size:.93rem}
+.sun{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.sun b{color:var(--ink)}
+.note{margin:0;font-size:.88rem;color:var(--muted);max-width:80ch}
+@media (max-width:760px){.info{grid-template-columns:1fr}.chip.ghost{margin-left:0}}
+@media (max-width:520px){.toast{max-width:calc(100% - 140px);left:10px;transform:none;top:10px;margin-left:122px;font-size:.88rem;padding:8px 12px}}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+
+<main class="wrap">
+  <header>
+    <h1>Latihan Manasik Umrah</h1>
+    <p class="sub">Gerakkan sendiri jamaahnya mengelilingi Ka'bah, berjalan Shafa–Marwah, lalu bertahalul. Putaran dihitung otomatis dan kesalahan langsung dikoreksi.</p>
+  </header>
+
+  <nav class="chips" id="chips" aria-label="Tahap manasik">
+    <button class="chip" type="button" data-s="thawaf" aria-pressed="true">1. Thawaf</button>
+    <button class="chip" type="button" data-s="sai" aria-pressed="false">2. Sa'i</button>
+    <button class="chip" type="button" data-s="tahalul" aria-pressed="false">3. Tahalul</button>
+    <button class="chip ghost" type="button" id="bWho">Ganti jamaah</button>
+  </nav>
+
+  <section class="stage" id="stage">
+    <canvas id="cv" role="img" aria-label="Area latihan manasik. Panduan dan hitungan ada di teks sekitar gambar."></canvas>
+    <div class="hud" id="hud"><span class="hl" id="hLbl"></span><b id="hNum"></b><i class="bar"><u id="hBar"></u></i></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="joy" id="joy" aria-hidden="true"><div class="knob" id="knob"></div></div>
+    <div class="acts">
+      <button class="btn" type="button" id="bFast" aria-pressed="false">Cepat</button>
+      <button class="btn primary" type="button" id="bAct">Istilam</button>
+    </div>
+
+    <div class="ovl" id="ovStart">
+      <h2>Pilih jamaah</h2>
+      <p>Tampilan dan sunnah yang dilatih berbeda untuk laki-laki dan perempuan.</p>
+      <div class="picks">
+        <button class="pick" type="button" id="pickM"><canvas id="cM" width="192" height="192"></canvas><b>Laki-laki</b><span>Kain ihram, ramal, halq</span></button>
+        <button class="pick" type="button" id="pickF"><canvas id="cF" width="192" height="192"></canvas><b>Perempuan</b><span>Mukena, jalan biasa, taqshir</span></button>
+      </div>
+    </div>
+
+    <div class="ovl" id="ovEnd" hidden>
+      <h2>Latihan selesai</h2>
+      <ul class="sumlist" id="sumList"></ul>
+      <div class="picks">
+        <button class="btn primary big" type="button" id="bAgain">Latihan lagi</button>
+        <button class="btn big" type="button" id="bClose">Tutup</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="keys" id="keys">Laptop: panah atau WASD untuk berjalan, tahan Shift untuk bergerak cepat, Spasi atau E untuk aksi. HP: geser joystick, atau ketuk tempat tujuan di gambar.</p>
+
+  <section class="info">
+    <div class="card">
+      <p class="kicker" id="kicker"></p>
+      <h2 id="step"></h2>
+      <p class="detail" id="detail"></p>
+      <p class="ar" id="ar" lang="ar" dir="rtl" hidden></p>
+      <p class="tr" id="tr" hidden></p>
+      <div class="opts" id="opts" hidden></div>
+      <button class="btn primary" type="button" id="bNext" hidden></button>
+    </div>
+    <div class="card">
+      <h3>Catatan latihan</h3>
+      <ul class="log" id="log"></ul>
+      <div class="sun" id="sun"></div>
+    </div>
+  </section>
+
+  <p class="note">Gambar disederhanakan dan tidak sesuai skala. Untuk tata cara lengkap dan bacaan doa, ikuti bimbingan muthawwif atau pembimbing manasik.</p>
+</main>
+
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const cv=$('cv'),ctx=cv.getContext('2d'),box=$('stage');
+const TAU=Math.PI*2;
+const C={};
+const TOK=['stage','stage2','ink','muted','line','kaaba','gold','signal','marble','pilgrim','edge','hill','hill2','skin','hair','accent','bad'];
+function readColors(){const s=getComputedStyle(document.documentElement);TOK.forEach(k=>{C[k]=s.getPropertyValue('--'+k).trim()})}
+const wrap=a=>{while(a>Math.PI)a-=TAU;while(a<-Math.PI)a+=TAU;return a};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function sm(t){t=clamp(t,0,1);return t*t*(3-2*t)}
+function rnd(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+/* ---------- state ---------- */
+const S={g:'m',stage:'thawaf',on:false,fast:false,
+  p:{x:150,y:150,f:-2.3,gait:0,spd:0,raise:0},
+  th:null,sa:null,ta:null,log:[],
+  sun:{ist:0,ramal:0,lari:0,doa:0,tahalul:0},done:{thawaf:false,sai:false,tahalul:false}};
+let clock=0,toastT=0,lastKey='',tgt=null,summaryT=0;
+
+/* ---------- canvas and camera ---------- */
+let CW=600,CH=400,DPR=1;
+const cam={x:0,y:0,s:1,vw:0,vh:0};
+function resize(){
+  const w=box.clientWidth||600;
+  CW=w;CH=Math.round(w<620?w*1.02:Math.min(w*0.6,Math.max(380,innerHeight*0.72)));
+  DPR=Math.min(devicePixelRatio||1,2);
+  cv.style.height=CH+'px';cv.width=Math.round(CW*DPR);cv.height=Math.round(CH*DPR);
+}
+function clampCam(x0,x1,y0,y1){
+  const hw=cam.vw/2,hh=cam.vh/2;
+  cam.x=(x1-x0<=cam.vw)?(x0+x1)/2:clamp(cam.x,x0+hw,x1-hw);
+  cam.y=(y1-y0<=cam.vh)?(y0+y1)/2:clamp(cam.y,y0+hh,y1-hh);
+}
+function camFollow(tx,ty,dt,snap){
+  const k=snap?1:1-Math.exp(-dt*8);
+  cam.x+=(tx-cam.x)*k;cam.y+=(ty-cam.y)*k;
+}
+function applyCam(){ctx.setTransform(DPR*cam.s,0,0,DPR*cam.s,DPR*(CW/2-cam.x*cam.s),DPR*(CH/2-cam.y*cam.s))}
+function screenMode(){ctx.setTransform(DPR,0,0,DPR,0,0)}
+function toWorld(px,py){return[(px-CW/2)/cam.s+cam.x,(py-CH/2)/cam.s+cam.y]}
+function txt(s,x,y,size,col,align,weight){
+  const sz=Math.max(size,12/cam.s);
+  ctx.font=(weight||500)+' '+sz+"px 'Source Sans 3',system-ui,sans-serif";
+  ctx.fillStyle=col;ctx.textAlign=align||'center';ctx.textBaseline='middle';ctx.fillText(s,x,y);
+}
+function circle(k,x,y,r){k.beginPath();k.arc(x,y,r,0,TAU)}
+function dot(x,y,r,al){ctx.globalAlpha=al;circle(ctx,x,y,r);ctx.fill()}
+
+/* ---------- input ---------- */
+const K={};const joy={x:0,y:0};
+let downAt=null;
+addEventListener('keydown',e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  const k=e.key.toLowerCase();K[k]=true;
+  if(!S.on)return;
+  const onBtn=(e.target.tagName||'')==='BUTTON';
+  if(['arrowup','arrowdown','arrowleft','arrowright'].includes(k)||(k===' '&&!onBtn))e.preventDefault();
+  if((k==='e'||(k===' '&&!onBtn))&&!e.repeat)act();
+});
+addEventListener('keyup',e=>{K[e.key.toLowerCase()]=false});
+addEventListener('blur',()=>{for(const k in K)K[k]=false});
+function isFast(){return S.fast||!!K['shift']}
+function inVec(){
+  let x=0,y=0;
+  if(K['arrowleft']||K['a'])x-=1;if(K['arrowright']||K['d'])x+=1;
+  if(K['arrowup']||K['w'])y-=1;if(K['arrowdown']||K['s'])y+=1;
+  x+=joy.x;y+=joy.y;
+  const m=Math.hypot(x,y);if(m>1){x/=m;y/=m}
+  return[x,y,Math.min(1,m)];
+}
+const joyEl=$('joy'),knob=$('knob');let joyId=null;
+function joyMove(e){
+  const r=joyEl.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,R=r.width/2-14;
+  let dx=e.clientX-cx,dy=e.clientY-cy;const d=Math.hypot(dx,dy);
+  if(d>R){dx*=R/d;dy*=R/d}
+  knob.style.transform='translate('+dx+'px,'+dy+'px)';
+  joy.x=Math.abs(dx/R)<0.12?0:dx/R;joy.y=Math.abs(dy/R)<0.12?0:dy/R;
+}
+function joyEnd(e){if(e.pointerId!==joyId)return;joyId=null;joy.x=joy.y=0;knob.style.transform='translate(0,0)'}
+joyEl.addEventListener('pointerdown',e=>{joyId=e.pointerId;joyEl.setPointerCapture(e.pointerId);tgt=null;joyMove(e)});
+joyEl.addEventListener('pointermove',e=>{if(e.pointerId===joyId)joyMove(e)});
+joyEl.addEventListener('pointerup',joyEnd);joyEl.addEventListener('pointercancel',joyEnd);
+
+function cvPos(e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*(CW/r.width),(e.clientY-r.top)*(CH/r.height)]}
+cv.addEventListener('pointerdown',e=>{
+  if(!S.on)return;
+  const p=cvPos(e);
+  if(S.stage==='tahalul'){cv.setPointerCapture(e.pointerId);taPointer(p[0],p[1],true);return}
+  downAt={x:e.clientX,y:e.clientY,t:performance.now()};
+});
+cv.addEventListener('pointermove',e=>{if(S.on&&S.stage==='tahalul'&&(e.buttons||e.pressure>0))taPointer(...cvPos(e),false)});
+cv.addEventListener('pointerup',e=>{
+  if(S.stage==='tahalul'){taUp();return}
+  if(!S.on||!downAt)return;
+  const moved=Math.hypot(e.clientX-downAt.x,e.clientY-downAt.y),dt=performance.now()-downAt.t;downAt=null;
+  if(moved>10||dt>600)return;
+  const p=cvPos(e),w=toWorld(p[0],p[1]);
+  tgt=S.stage==='thawaf'?{x:w[0],y:w[1]}:{x:w[0]};
+});
+cv.addEventListener('pointercancel',()=>{downAt=null;taUp()});
+
+/* ---------- messages ---------- */
+function toast(m,type){const t=$('toast');t.textContent=m;t.className='toast show '+(type||'');toastT=type==='bad'?4.2:3.2}
+function note(kind,m){S.log.unshift({k:kind,m:m});if(S.log.length>40)S.log.pop()}
+function bad(m){toast(m,'bad');note('bad',m)}
+function ok(m){toast(m,'good');note('ok',m)}
+function tip(m){toast(m,'tip');note('tip',m)}
+
+/* ---------- people (top view) ---------- */
+function drawTop(k,x,y,f,gait,o){
+  o=o||{};const fem=o.g==='f',sc=o.sc||1;
+  k.save();k.translate(x,y);k.rotate(f);k.scale(sc,sc);k.lineJoin='round';k.lineCap='round';
+  k.fillStyle='rgba(0,0,0,.2)';k.beginPath();k.ellipse(0,0,15,17,0,0,TAU);k.fill();
+  const st=Math.sin(gait)*5;
+  k.fillStyle=C.edge;k.beginPath();k.ellipse(5+st,-5,5,3,0,0,TAU);k.ellipse(5-st,5,5,3,0,0,TAU);k.fill();
+  k.fillStyle=C.pilgrim;k.strokeStyle=C.edge;k.lineWidth=1.8;
+  if(fem){
+    k.beginPath();k.moveTo(8,-14);k.bezierCurveTo(-4,-18,-18,-11,-21,0);k.bezierCurveTo(-18,11,-4,18,8,14);k.bezierCurveTo(13,7,13,-7,8,-14);k.closePath();k.fill();k.stroke();
+    k.globalAlpha=.4;k.beginPath();k.moveTo(-2,-9);k.quadraticCurveTo(-11,0,-2,9);k.stroke();k.globalAlpha=1;
+  }else{
+    k.beginPath();k.ellipse(0,0,7.5,14,0,0,TAU);k.fill();k.stroke();
+    if(o.bare){k.fillStyle=C.skin;k.beginPath();k.ellipse(0.5,10,5.4,4.4,0,0,TAU);k.fill();k.stroke()}
+  }
+  const sw=Math.sin(gait)*4,rz=o.raise||0;
+  k.fillStyle=C.skin;k.strokeStyle=C.skin;k.lineWidth=3.4;
+  if(!fem||rz>0){
+    k.beginPath();k.moveTo(1,-12);k.lineTo(4+sw,-14);k.stroke();circle(k,4+sw,-14,2.6);k.fill();
+  }else{circle(k,5+sw,-13,2.6);k.fill()}
+  if(rz>0){k.beginPath();k.moveTo(1,11);k.lineTo(4+16*rz,10);k.stroke();circle(k,5+16*rz,10,3.2);k.fill()}
+  else{circle(k,4-sw,fem?13:14,2.6);k.fill()}
+  k.strokeStyle=C.edge;k.lineWidth=1.8;
+  if(fem){
+    k.fillStyle=C.pilgrim;circle(k,0,0,8);k.fill();k.stroke();
+    k.fillStyle=C.skin;k.beginPath();k.ellipse(5.4,0,2.6,3.8,0,0,TAU);k.fill();
+  }else{
+    const bald=o.bald;
+    k.fillStyle=bald?C.skin:C.hair;circle(k,0,0,7.4);k.fill();k.stroke();
+    k.fillStyle=C.skin;k.beginPath();k.ellipse(4.8,0,3,4.6,0,0,TAU);k.fill();
+  }
+  k.restore();
+}
+
+/* ---------- THAWAF ---------- */
+const KW=72,KH=60,PCY=-14,PRX=250,PRY=200,WX=338,LT=Math.tan(25*Math.PI/180),YW=KH+(WX-KW)*LT;
+const sdf=(x,y)=>(x-KW)*LT-(y-KH);
+const MAQ={x:152,y:15,w:26,h:26};
+const BND={x0:-340,x1:WX-8,y0:-290,y1:292};
+const LANES=[{a:108,b:120},{a:126,b:130}];
+function lanePt(l,th){const c=Math.cos(th),s=Math.sin(th);return[l.a*Math.sign(c)*Math.sqrt(Math.abs(c)),-30+l.b*Math.sign(s)*Math.sqrt(Math.abs(s))]}
+function ptAt(th,f){return[f*PRX*Math.cos(th),PCY+f*PRY*Math.sin(th)]}
+const crowd=(()=>{const r=rnd(7),a=[];for(let i=0;i<46;i++){let f=0.9+r()*0.3;if(f>0.955&&f<1.045)f+=0.1;a.push({f,ph:r()*TAU,w:0.85+r()*0.3})}return a})();
+const laneCrowd=(()=>{const r=rnd(21),a=[];LANES.forEach((l,li)=>{for(let i=0;i<18;i++)a.push({li:li,ph:i/18*TAU+r()*0.2,w:0.8+r()*0.3})});return a})();
+const hajarCrowd=(()=>{const r=rnd(33),a=[];for(let i=0;i<18;i++)a.push({x:82+r()*44,y:52+r()*50,ph:r()*TAU,am:1.2+r()*1.8});return a})();
+const hijrCrowd=(()=>{const r=rnd(45),a=[];for(let i=0;i<10;i++){const an=Math.PI+0.35+r()*(Math.PI-0.7),rd=8+r()*28;a.push({x:Math.cos(an)*rd,y:-KH+Math.sin(an)*rd,ph:r()*TAU})}return a})();
+const QN=20,SLOW={x:104,y:76,r:38};
+const AR_IST='بِسْمِ اللَّهِ وَاللَّهُ أَكْبَرُ';
+const AR_SAPU='رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ';
+const TR_IST='Dengan nama Allah, Allah Maha Besar.';
+const TR_SAPU='Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan lindungilah kami dari azab neraka.';
+
+function initTh(){
+  const x=150,y=150;
+  S.p={x:x,y:y,f:Math.atan2(KH-y,KW-x),gait:0,spd:0,raise:0};
+  S.th={started:false,round:0,cum:0,prevAng:Math.atan2(y,x),prevSd:sdf(x,y),broken:false,inH:false,fastT:0,totT:0,istT:0,done:false,badDir:false};
+  tgt=null;
+}
+function inHijr(p){const dy=p.y+KH;return dy<0&&Math.hypot(p.x,dy)<48}
+function moveTh(dt){
+  const p=S.p,iv=inVec(),fast=isFast();
+  const base=fast?128:92;
+  let vx=0,vy=0;
+  const inSlow=Math.hypot(p.x-SLOW.x,p.y-SLOW.y)<SLOW.r?0.55:1;
+  if(p.raise>0){p.raise=Math.max(0,p.raise-dt)}
+  if(iv[2]>0.05){tgt=null;vx=iv[0]/Math.hypot(iv[0],iv[1])*base*iv[2]*inSlow;vy=iv[1]/Math.hypot(iv[0],iv[1])*base*iv[2]*inSlow}
+  else if(tgt){
+    const dx=tgt.x-p.x,dy=tgt.y-p.y,d=Math.hypot(dx,dy);
+    if(d<5)tgt=null;else{vx=dx/d*base*inSlow;vy=dy/d*base*inSlow}
+  }
+  p.x+=vx*dt;p.y+=vy*dt;
+  p.x=clamp(p.x,BND.x0,BND.x1);p.y=clamp(p.y,BND.y0,BND.y1);
+  // Ka'bah
+  const m=9;
+  if(Math.abs(p.x)<KW+m&&Math.abs(p.y)<KH+m){
+    const px=KW+m-Math.abs(p.x),py=KH+m-Math.abs(p.y);
+    if(px<py)p.x=Math.sign(p.x||1)*(KW+m);else p.y=Math.sign(p.y||1)*(KH+m);
+  }
+  // Maqam Ibrahim
+  if(p.x>MAQ.x-MAQ.w/2-m&&p.x<MAQ.x+MAQ.w/2+m&&p.y>MAQ.y-MAQ.h/2-m&&p.y<MAQ.y+MAQ.h/2+m){
+    const dl=p.x-(MAQ.x-MAQ.w/2-m),dr=(MAQ.x+MAQ.w/2+m)-p.x,du=p.y-(MAQ.y-MAQ.h/2-m),dd=(MAQ.y+MAQ.h/2+m)-p.y;
+    const mn=Math.min(dl,dr,du,dd);
+    if(mn===dl)p.x-=dl;else if(mn===dr)p.x+=dr;else if(mn===du)p.y-=du;else p.y+=dd;
+  }
+  // Hijr Ismail wall (open at both ends)
+  const hx=p.x,hy=p.y+KH,hd=Math.hypot(hx,hy);
+  if(hy<0&&hd>46&&hd<56){
+    const el=Math.atan2(-hy,Math.abs(hx));
+    if(el>0.32){const nd=hd>=51?56:46;p.x=hx/hd*nd;p.y=hy/hd*nd-KH}
+  }
+  const sp=Math.hypot(vx,vy);p.spd=sp;
+  if(sp>6){const ta=Math.atan2(vy,vx);p.f+=wrap(ta-p.f)*Math.min(1,dt*12);p.gait+=sp*dt*0.16}
+}
+function crossing(ang){
+  const th=S.th;
+  const istOK=th.istT>0;th.istT=0;
+  if(!th.started){
+    th.started=true;th.cum=0;th.prevAng=ang;th.fastT=th.totT=0;th.broken=false;
+    if(istOK){S.sun.ist++;ok('Istilam benar. Thawaf dimulai: putaran 1.')}
+    else ok('Thawaf dimulai: putaran 1. Istilam (sunnah) bisa dilakukan sebelum melewati garis.');
+    return;
+  }
+  if(th.broken){th.broken=false;th.cum=0;th.fastT=th.totT=0;bad('Putaran diulang dari garis cokelat karena sebelumnya tidak sah.');return}
+  if(th.cum>=5.5){completeRound(istOK);return}
+  if(th.cum>1){bad('Belum satu putaran penuh. Hitungan putaran ini diulang dari garis.')}
+  th.cum=0;th.fastT=th.totT=0;
+}
+function completeRound(istOK){
+  const th=S.th,male=S.g==='m';
+  th.round++;
+  const r=th.round,fr=th.totT>0?th.fastT/th.totT:0;
+  if(istOK)S.sun.ist++;
+  if(male&&r<=3){
+    if(fr>=0.55){S.sun.ramal++;note('ok','Putaran '+r+': ramal sudah dilakukan.')}
+    else tip('Putaran '+r+': laki-laki disunnahkan ramal, yaitu langkah cepat dan pendek. Tahan Shift atau tekan Cepat.');
+  }else if(male&&fr>0.5)tip('Putaran '+r+': setelah putaran ketiga, berjalan biasa.');
+  else if(!male&&fr>0.35)tip('Putaran '+r+': perempuan tidak ramal, cukup berjalan biasa.');
+  th.cum=0;th.fastT=th.totT=0;
+  if(r>=7){th.done=true;S.done.thawaf=true;ok('Thawaf selesai: 7 putaran.')}
+  else ok('Putaran '+r+' selesai. Lanjut putaran '+(r+1)+'.');
+}
+function logicTh(dt){
+  const th=S.th,p=S.p,ang=Math.atan2(p.y,p.x),sd=sdf(p.x,p.y);
+  if(th.istT>0)th.istT-=dt;
+  const hj=inHijr(p);
+  if(hj&&!th.inH){
+    th.inH=true;
+    if(th.started&&!th.done){th.broken=true;bad('Kamu masuk Hijr Ismail. Putaran ini tidak sah. Keluar, lalu ulangi dari garis cokelat.')}
+    else tip('Hijr Ismail termasuk bagian Ka\'bah. Thawaf harus di luar Hijr.');
+  }
+  if(!hj)th.inH=false;
+  if(th.started&&!th.done){
+    th.cum+=-wrap(ang-th.prevAng);th.prevAng=ang;
+    th.totT+=dt;if(isFast())th.fastT+=dt;
+    if(th.cum<-0.7&&!th.badDir){th.badDir=true;bad('Arahmu terbalik. Ka\'bah harus selalu di sebelah kiri.')}
+    if(th.cum>-0.2)th.badDir=false;
+    th.cum=Math.max(th.cum,-1.5);
+  }else th.prevAng=ang;
+  if(!th.done&&p.x>KW+2&&p.x<WX&&th.prevSd<0&&sd>=0)crossing(ang);
+  th.prevSd=sd;
+}
+function actTh(){
+  const th=S.th,p=S.p;
+  if(th.done){nextStage();return}
+  if(Math.hypot(p.x-KW,p.y-KH)>120){tip('Istilam dilakukan saat sejajar Hajar Aswad. Dekati garis cokelat dulu.');return}
+  th.istT=9;p.raise=1.4;
+  toast('Istilam: Bismillahi, Allahu Akbar','good');
+}
+function zoneTh(){
+  const p=S.p,a=Math.atan2(p.y,p.x);
+  if(a>-0.695&&a<=0.695)return{s:'Sisi pintu: Hajar Aswad, Multazam, pintu, Rukun Iraqi',d:'Dinding antara Hajar Aswad dan pintu disebut Multazam. Jalur dalam lewat sisi pintu sebelum Maqam Ibrahim, jalur luar lewat di luar Maqam.'};
+  if(a<=-0.695&&a>-2.446)return{s:'Mengitari Hijr Ismail, Rukun Iraqi ke Rukun Syami',d:'Hijr Ismail bagian dari Ka\'bah. Jalur thawaf harus di luar dindingnya. Antrean setengah cincin adalah orang yang menunggu shalat di dalam Hijr.'};
+  if(a>0.695&&a<=2.446)return{s:'Antara Rukun Yamani dan Hajar Aswad',d:'Ada doa yang dianjurkan di bagian ini. Hajar Aswad makin dekat di depan.',ar:AR_SAPU,tr:TR_SAPU};
+  return{s:'Sisi barat: Rukun Syami ke Rukun Yamani',d:'Ka\'bah tetap di sebelah kiri. Di Rukun Yamani boleh mengusap jika memungkinkan; jika ramai, cukup lanjut berjalan.'};
+}
+function guideTh(){
+  const th=S.th;
+  if(th.done)return{k:'Thawaf selesai · 7 putaran',s:'Shalat sunnah dua rakaat',d:"Idealnya di belakang Maqam Ibrahim; jika ramai, boleh di tempat lain di Masjidil Haram. Setelah itu minum air zamzam, lalu lanjut ke Sa'i.",next:"Lanjut ke Sa'i"};
+  if(!th.started)return{k:'Persiapan',s:'Menuju garis cokelat, sejajar Hajar Aswad',d:'Garis cokelat di lantai berawal dari Hajar Aswad dan lurus dengan lampu hijau di dinding masjid. Dekati garis, tekan Istilam, lalu lewati garis dengan Ka\'bah di sebelah kiri.',ar:AR_IST,tr:TR_IST};
+  const z=zoneTh();
+  return{k:'Putaran '+(th.round+1)+' dari 7'+(S.g==='m'&&th.round<3?' · ramal':''),s:z.s,d:z.d,ar:z.ar,tr:z.tr};
+}
+function hudTh(){
+  const th=S.th;
+  if(th.done)return{l:'Thawaf selesai',n:'7 / 7',b:1};
+  if(!th.started)return{l:'Belum mulai',n:'0 / 7',b:0};
+  return{l:'Putaran berjalan',n:(th.round+1)+' / 7',b:clamp(th.cum/TAU,0,1)};
+}
+
+function drawTh(){
+  const k=ctx,pu=0.5+0.5*Math.sin(clock*3);
+  k.fillStyle=C.stage2;k.globalAlpha=.5;
+  // masjid wall
+  k.fillStyle=C.stage2;k.globalAlpha=1;k.fillRect(WX,-320,18,640);
+  k.strokeStyle=C.muted;k.lineWidth=1.5;k.beginPath();k.moveTo(WX,-320);k.lineTo(WX,320);k.stroke();
+  k.strokeStyle=C.stage2;k.lineWidth=1.3;
+  for(let f=0.8;f<=1.21;f+=0.1){k.beginPath();k.ellipse(0,PCY,PRX*f,PRY*f,0,0,TAU);k.stroke()}
+  k.strokeStyle=C.muted;k.globalAlpha=.5;k.lineWidth=1.8;k.setLineDash([9,11]);k.lineDashOffset=clock*14;
+  k.beginPath();k.ellipse(0,PCY,PRX,PRY,0,0,TAU);k.stroke();
+  LANES.forEach(l=>{k.beginPath();for(let i=0;i<=120;i++){const q=lanePt(l,i/120*TAU);if(i===0)k.moveTo(q[0],q[1]);else k.lineTo(q[0],q[1])}k.closePath();k.stroke()});
+  k.setLineDash([]);k.globalAlpha=1;
+  // brown start line and green light
+  k.strokeStyle='#9A6A42';k.lineWidth=4;k.beginPath();k.moveTo(KW+5,KH+2);k.lineTo(WX,YW);k.stroke();
+  k.fillStyle=C.signal;k.globalAlpha=.16+.16*pu;circle(k,WX-4,YW,14);k.fill();
+  k.globalAlpha=1;circle(k,WX-4,YW,7);k.fill();
+  txt('Lampu hijau di dinding',WX-12,YW+26,13.5,C.ink,'right',700);
+  txt('garis cokelat dari Hajar Aswad',WX-12,YW+44,12.5,C.muted,'right',500);
+  // Hijr Ismail
+  k.fillStyle=C.stage2;k.globalAlpha=.6;k.beginPath();k.arc(0,-KH,48,Math.PI,TAU);k.closePath();k.fill();k.globalAlpha=1;
+  k.strokeStyle=C.edge;k.lineWidth=12;k.beginPath();k.arc(0,-KH,52,Math.PI+0.0,TAU-0.0);k.stroke();
+  k.strokeStyle=C.marble;k.lineWidth=8;k.beginPath();k.arc(0,-KH,52,Math.PI,TAU);k.stroke();
+  txt('Hijr Ismail',0,-84,14,C.ink,'center',600);
+  // Ka'bah
+  k.fillStyle=C.kaaba;k.strokeStyle=C.gold;k.lineWidth=3;k.beginPath();k.rect(-KW,-KH,KW*2,KH*2);k.fill();k.stroke();
+  k.globalAlpha=.3;k.lineWidth=1.5;k.strokeRect(-KW+12,-KH+12,KW*2-24,KH*2-24);k.globalAlpha=1;
+  txt("Ka'bah",0,0,20,C.gold,'center',700);
+  k.fillStyle=C.gold;k.fillRect(KW,0,7,30);
+  txt("Pintu Ka'bah",KW-10,15,12,C.gold,'right',600);
+  const mp=0.5+0.5*Math.sin(clock*2.5);
+  k.strokeStyle=C.accent;k.lineCap='round';k.globalAlpha=.25+.2*mp;k.lineWidth=12;
+  k.beginPath();k.moveTo(KW+4,33);k.lineTo(KW+4,51);k.stroke();
+  k.globalAlpha=1;k.lineWidth=5;k.stroke();k.lineCap='butt';
+  txt('Multazam',KW-10,43,12.5,C.marble,'right',700);
+  k.fillStyle='#2b2b2b';k.strokeStyle='#d8dcde';k.lineWidth=3;circle(k,KW,KH,7);k.fill();k.stroke();
+  txt('Rukun Hajar Aswad',KW,KH+58,13,C.ink,'center',700);
+  txt('Rukun Yamani',-KW,KH+58,13,C.ink,'center',700);
+  k.fillStyle=C.gold;[[-KW,-KH],[KW,-KH],[-KW,KH]].forEach(c=>k.fillRect(c[0]-5,c[1]-5,10,10));
+  txt('Rukun',KW-12,-KH+14,12,C.marble,'right',600);txt('Iraqi',KW-12,-KH+28,12,C.marble,'right',700);
+  txt('Rukun',-KW+12,-KH+14,12,C.marble,'left',600);txt('Syami',-KW+12,-KH+28,12,C.marble,'left',700);
+  // Maqam Ibrahim
+  k.fillStyle=C.gold;k.globalAlpha=.25;k.fillRect(MAQ.x-MAQ.w/2,MAQ.y-MAQ.h/2,MAQ.w,MAQ.h);k.globalAlpha=1;
+  k.strokeStyle=C.gold;k.lineWidth=3;k.strokeRect(MAQ.x-MAQ.w/2,MAQ.y-MAQ.h/2,MAQ.w,MAQ.h);
+  k.fillStyle=C.gold;circle(k,MAQ.x,MAQ.y,5);k.fill();
+  txt('Maqam Ibrahim',MAQ.x,MAQ.y+32,13,C.ink,'center',600);
+  txt("Berjalan berlawanan arah jarum jam, Ka'bah di sebelah kiri",0,262,13,C.muted,'center',500);
+  // crowds
+  k.fillStyle=C.muted;
+  crowd.forEach(c=>{const q=ptAt(0.7+c.ph-TAU*clock*0.1*c.w,c.f);dot(q[0],q[1],4.5,.6)});
+  laneCrowd.forEach(c=>{const q=lanePt(LANES[c.li],c.ph-TAU*clock*0.1*c.w*1.1);dot(q[0],q[1],4.3,.65)});
+  k.fillStyle=C.accent;k.globalAlpha=.10;k.beginPath();k.arc(SLOW.x,SLOW.y,SLOW.r,0,TAU);k.fill();
+  k.fillStyle=C.muted;
+  hajarCrowd.forEach(c=>dot(c.x+Math.sin(clock*2.2+c.ph)*c.am,c.y+Math.cos(clock*1.9+c.ph)*c.am,4.4,.78));
+  hijrCrowd.forEach(c=>dot(c.x+Math.sin(clock*1.3+c.ph)*1.2,c.y+Math.cos(clock*1.1+c.ph)*1.2,4.2,.8));
+  for(let i=0;i<QN;i++){
+    const u=(i/QN+clock*0.012)%1,an=TAU-u*Math.PI,al=Math.min(1,u*9,(1-u)*9)*0.8;
+    dot(Math.cos(an)*70,-KH+Math.sin(an)*70,4.2,al);dot(Math.cos(an)*78,-KH+Math.sin(an)*78,4.2,al*0.85);
+  }
+  k.globalAlpha=1;
+  // tap target
+  if(tgt){k.strokeStyle=C.accent;k.lineWidth=2.5;k.globalAlpha=.7;circle(k,tgt.x,tgt.y,8+3*Math.sin(clock*8));k.stroke();k.globalAlpha=1}
+  // pilgrim
+  const p=S.p,th=S.th;
+  const bare=S.g==='m';
+  if(th&&th.broken){k.strokeStyle=C.bad;k.lineWidth=3;k.globalAlpha=.6+.3*pu;circle(k,p.x,p.y,19);k.stroke();k.globalAlpha=1}
+  drawTop(k,p.x,p.y,p.f,p.gait,{g:S.g,bare:bare,raise:p.raise>0?Math.min(1,p.raise*2):0,bald:S.done.tahalul&&S.ta&&S.ta.kind==='halq'});
+}
+function drawMini(){
+  const w=Math.min(118,CW*0.3),h=w*0.84,x0=CW-w-10,y0=10,sx=w/700,sy=h/600;
+  screenMode();
+  ctx.fillStyle=C.stage;ctx.globalAlpha=.88;ctx.fillRect(x0,y0,w,h);ctx.globalAlpha=1;
+  ctx.strokeStyle=C.line;ctx.lineWidth=1;ctx.strokeRect(x0+.5,y0+.5,w-1,h-1);
+  const mx=v=>x0+(v+350)*sx,my=v=>y0+(v+300)*sy;
+  ctx.strokeStyle=C.muted;ctx.globalAlpha=.5;ctx.beginPath();ctx.ellipse(mx(0),my(PCY),PRX*sx,PRY*sy,0,0,TAU);ctx.stroke();ctx.globalAlpha=1;
+  ctx.fillStyle=C.kaaba;ctx.fillRect(mx(-KW),my(-KH),KW*2*sx,KH*2*sy);
+  ctx.strokeStyle=C.edge;ctx.lineWidth=2;ctx.beginPath();ctx.arc(mx(0),my(-KH),52*sx,Math.PI,TAU);ctx.stroke();
+  ctx.strokeStyle='#9A6A42';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(mx(KW),my(KH));ctx.lineTo(mx(WX),my(YW));ctx.stroke();
+  ctx.fillStyle=C.signal;circle(ctx,mx(WX-4),my(YW),2.6);ctx.fill();
+  ctx.fillStyle=C.accent;circle(ctx,mx(S.p.x),my(S.p.y),3.6);ctx.fill();
+  ctx.strokeStyle=C.accent;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(mx(S.p.x),my(S.p.y));ctx.lineTo(mx(S.p.x)+Math.cos(S.p.f)*8,my(S.p.y)+Math.sin(S.p.f)*8);ctx.stroke();
+}
+function sceneTh(dt,snap){
+  const VW=Math.min(560,Math.max(330,CW/1.05));
+  cam.s=CW/VW;cam.vw=VW;cam.vh=CH/cam.s;
+  camFollow(S.p.x,S.p.y,dt,snap);clampCam(-345,360,-305,310);
+  screenMode();ctx.fillStyle=C.stage;ctx.fillRect(0,0,CW,CH);
+  applyCam();drawTh();drawMini();
+}
+
+/* ---------- SA'I ---------- */
+const SAI={x0:80,x1:720,g1:290,g2:510,base:278,hh:66,W:800,H:380};
+function gy(x){
+  let h=0;
+  if(x<210)h=SAI.hh*sm((210-x)/130);
+  else if(x>590)h=SAI.hh*sm((x-590)/130);
+  return SAI.base-h;
+}
+const AR_SAFA='إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَائِرِ اللَّهِ';
+const TR_SAFA='Sesungguhnya Shafa dan Marwah adalah sebagian dari syiar (tanda kebesaran) Allah.';
+const AR_TAKBIR='اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ';
+const TR_TAKBIR='Allah Maha Besar (tiga kali), lalu berdoa sesuai hajat dengan menghadap Ka\'bah.';
+function initSa(){
+  S.sa={x:SAI.x0,f:1,dir:1,trip:0,started:false,maxD:0,gait:0,spd:0,pray:0,
+    zT:0,zF:0,oT:0,oF:0,done:false,prayedAt:false};
+  S.p={x:SAI.x0,y:gy(SAI.x0),f:1,gait:0,spd:0,raise:0};
+  tgt=null;
+}
+function moveSa(dt){
+  const sa=S.sa;
+  if(sa.done)return;
+  if(sa.pray>0){sa.pray-=dt;sa.spd=0;return}
+  const iv=inVec(),fast=isFast(),base=fast?135:70;
+  let vx=0;
+  const want=Math.abs(iv[0])>0.1?Math.sign(iv[0])*Math.min(1,Math.abs(iv[0])):0;
+  if(want!==0){tgt=null;vx=want*base}
+  else if(tgt){
+    const d=tgt.x-sa.x;
+    if(Math.abs(d)<4)tgt=null;else vx=Math.sign(d)*base;
+  }
+  if(vx!==0){
+    const slope=(gy(sa.x+2)-gy(sa.x-2))/4;
+    const rise=-slope*Math.sign(vx);
+    vx*=1-clamp(rise,0,1)*0.5;
+    sa.f=Math.sign(vx);
+  }
+  sa.x=clamp(sa.x+vx*dt,SAI.x0-24,SAI.x1+24);
+  sa.spd=Math.abs(vx);
+  sa.gait+=sa.spd*dt*(fast?0.1:0.115);
+}
+function arriveSa(){
+  const sa=S.sa,male=S.g==='m',from=sa.dir>0?'Shafa':'Marwah',to=sa.dir>0?'Marwah':'Shafa';
+  const zf=sa.zT>0.4?sa.zF/sa.zT:0,of=sa.oT>0.6?sa.oF/sa.oT:0;
+  sa.trip++;
+  if(male){
+    if(zf>=0.6){S.sun.lari++;note('ok','Perjalanan '+sa.trip+': lari kecil di antara lampu hijau sudah benar.')}
+    else tip('Perjalanan '+sa.trip+': laki-laki disunnahkan lari kecil di antara dua lampu hijau. Tahan Shift atau tekan Cepat di area itu.');
+    if(of>0.35)tip('Berlari kecil hanya di antara dua lampu hijau. Di luar itu berjalan biasa.');
+  }else if(zf>0.3||of>0.4)tip('Perempuan tidak berlari kecil, cukup berjalan biasa.');
+  if(sa.trip>=7){sa.done=true;S.done.sai=true;ok("Sa'i selesai: 7 perjalanan berakhir di Marwah.")}
+  else ok('Perjalanan '+sa.trip+' selesai di '+to+'. Sekarang menuju '+from+'.');
+  sa.dir=-sa.dir;sa.maxD=0;sa.zT=sa.zF=sa.oT=sa.oF=0;
+}
+function logicSa(dt){
+  const sa=S.sa;
+  if(sa.done)return;
+  const origin=sa.dir>0?SAI.x0:SAI.x1,dest=sa.dir>0?SAI.x1:SAI.x0;
+  const dO=Math.abs(sa.x-origin);
+  if(!sa.started&&dO>14){sa.started=true;ok("Sa'i dimulai dari Shafa: perjalanan 1 menuju Marwah.")}
+  sa.maxD=Math.max(sa.maxD,dO);
+  const moving=sa.spd>5,fast=isFast(),inZ=sa.x>SAI.g1&&sa.x<SAI.g2;
+  if(moving){if(inZ){sa.zT+=dt;if(fast)sa.zF+=dt}else{sa.oT+=dt;if(fast)sa.oF+=dt}}
+  if(sa.started&&sa.maxD>150&&dO<14){
+    bad('Kamu kembali ke '+(sa.dir>0?'Shafa':'Marwah')+' sebelum sampai. Perjalanan ini tidak dihitung, mulai lagi menuju '+(sa.dir>0?'Marwah':'Shafa')+'.');
+    sa.maxD=0;sa.zT=sa.zF=sa.oT=sa.oF=0;
+  }
+  if(sa.started&&sa.maxD>400&&Math.abs(sa.x-dest)<=14)arriveSa();
+}
+function actSa(){
+  const sa=S.sa;
+  if(sa.done){nextStage();return}
+  const atEnd=Math.abs(sa.x-SAI.x0)<50||Math.abs(sa.x-SAI.x1)<50;
+  if(!atEnd){tip('Berdoa dilakukan di puncak Shafa atau Marwah. Dekati ujung bukit dulu.');return}
+  sa.pray=2.6;S.sun.doa++;
+  toast(sa.x<400?'Menghadap Ka\'bah, mengangkat tangan, berdoa di Shafa':'Menghadap Ka\'bah, mengangkat tangan, berdoa di Marwah','good');
+}
+function guideSa(){
+  const sa=S.sa;
+  const from=sa.dir>0?'Shafa':'Marwah',to=sa.dir>0?'Marwah':'Shafa';
+  if(sa.done)return{k:'Sa\'i selesai · 7 perjalanan',s:'Berakhir di Marwah',d:'Shafa ke Marwah dihitung satu, Marwah ke Shafa dihitung satu lagi. Berikutnya tahalul.',next:'Lanjut ke Tahalul'};
+  if(!sa.started)return{k:'Mulai di Shafa',s:'Naik ke Shafa, menghadap Ka\'bah',d:'Baca ayat ini, lalu tekan Berdoa untuk mengangkat tangan dan berdoa. Setelah itu berjalan menuju Marwah.',ar:AR_SAFA,tr:TR_SAFA};
+  const inZ=sa.x>SAI.g1&&sa.x<SAI.g2;
+  const k='Perjalanan '+(sa.trip+1)+' dari 7 · '+from+' ke '+to;
+  if(inZ)return S.g==='m'
+    ?{k:k,s:'Antara dua lampu hijau: lari kecil',d:'Laki-laki disunnahkan berlari kecil di antara dua lampu hijau. Tahan Shift atau tekan Cepat. Setelah lampu kedua, kembali berjalan biasa.'}
+    :{k:k,s:'Antara dua lampu hijau: tetap berjalan',d:'Perempuan tidak berlari kecil. Cukup berjalan biasa dengan tenang.'};
+  if(sa.x<210||sa.x>590)return{k:k,s:'Menyusuri tanjakan dekat bukit',d:'Ujung jalur sedikit menanjak menuju bukit, jadi langkah melambat. Berjalan biasa sambil berdzikir.'};
+  return{k:k,s:'Berjalan dari '+from+' ke '+to,d:S.g==='m'?'Berjalan biasa di jalur datar. Lampu hijau tempat lari kecil ada di depan.':'Berjalan biasa di jalur datar. Lampu hijau ada di depan.'};
+}
+function hudSa(){
+  const sa=S.sa;
+  if(sa.done)return{l:'Sa\'i selesai',n:'7 / 7',b:1};
+  const dest=sa.dir>0?SAI.x1:SAI.x0,origin=sa.dir>0?SAI.x0:SAI.x1;
+  const b=clamp(Math.abs(sa.x-origin)/Math.abs(dest-origin),0,1);
+  if(!sa.started)return{l:'Belum mulai',n:'0 / 7',b:0};
+  return{l:(sa.dir>0?'Shafa → Marwah':'Marwah → Shafa'),n:(sa.trip+1)+' / 7',b:b};
+}
+
+/* side-view person */
+function drawSide(k,x,y,dir,gait,o){
+  o=o||{};const fem=o.g==='f',run=o.run,up=o.up;
+  k.save();k.translate(x,y);
+  k.fillStyle='rgba(0,0,0,.18)';k.beginPath();k.ellipse(0,2,15,3.5,0,0,TAU);k.fill();
+  k.scale(dir,1);
+  const sw=Math.sin(gait),bob=up?0:(run?Math.abs(Math.cos(gait))*4:Math.abs(Math.cos(gait))*1.5);
+  k.translate(0,-bob);k.lineCap='round';k.lineJoin='round';
+  const ls=up?0:sw*(run?15:10);
+  k.strokeStyle=C.ink;k.lineWidth=4.5;
+  if(!fem){k.beginPath();k.moveTo(0,-26);k.lineTo(ls,bob);k.moveTo(0,-26);k.lineTo(-ls,bob);k.stroke()}
+  k.fillStyle=C.pilgrim;k.strokeStyle=C.edge;k.lineWidth=2;
+  if(fem){
+    k.beginPath();k.moveTo(-9,-54);k.lineTo(9,-54);k.lineTo(14,-8+bob*0.2);k.lineTo(-14,-8+bob*0.2);k.closePath();k.fill();k.stroke();
+    k.fillStyle=C.edge;k.beginPath();k.ellipse(ls*0.5+3,bob+1,5,2.5,0,0,TAU);k.ellipse(-ls*0.5+3,bob+1,5,2.5,0,0,TAU);k.fill();
+  }else{
+    k.beginPath();k.moveTo(-10,-22);k.lineTo(10,-22);k.lineTo(7,-54);k.lineTo(-7,-54);k.closePath();k.fill();k.stroke();
+  }
+  k.strokeStyle=fem?C.pilgrim:C.skin;k.lineWidth=4;
+  k.beginPath();
+  if(up){k.moveTo(-5,-52);k.lineTo(-11,-78);k.moveTo(5,-52);k.lineTo(11,-78)}
+  else{const a=sw*(run?12:7);k.moveTo(0,-52);k.lineTo(a,-36);k.moveTo(0,-52);k.lineTo(-a,-36)}
+  k.stroke();
+  if(fem&&up){k.fillStyle=C.skin;circle(k,-11,-78,2.6);k.fill();circle(k,11,-78,2.6);k.fill()}
+  k.strokeStyle=C.edge;k.lineWidth=1.6;
+  if(fem){
+    k.fillStyle=C.pilgrim;circle(k,0,-63,9.8);k.fill();k.stroke();
+    k.fillStyle=C.skin;k.beginPath();k.ellipse(4.6,-63,3,4.6,0,0,TAU);k.fill();
+  }else{
+    k.fillStyle=C.skin;circle(k,0,-63,8.5);k.fill();k.stroke();
+    k.fillStyle=S.done.tahalul&&S.ta&&S.ta.kind==='halq'?C.skin:C.hair;k.beginPath();k.arc(0,-64,8.6,Math.PI*0.95,Math.PI*1.95);k.fill();
+  }
+  k.restore();
+}
+function drawSai(){
+  const k=ctx,W=SAI.W,H=SAI.H,x0=-200,x1=W+200;
+  k.fillStyle=C.stage2;k.fillRect(x0,-200,x1-x0,234);
+  k.globalAlpha=.55;for(let x=-150;x<W+200;x+=100)k.fillRect(x-7,34,14,SAI.base-34);k.globalAlpha=1;
+  k.beginPath();k.moveTo(x0,H+200);for(let x=x0;x<=x1;x+=8)k.lineTo(x,gy(x));k.lineTo(x1,H+200);k.closePath();
+  k.fillStyle=C.hill;k.fill();
+  const r=rnd(3);
+  for(let i=0;i<48;i++){const x=r()*W,y=gy(x)+14+r()*60;k.fillStyle=C.hill2;k.beginPath();k.ellipse(x,y,6+r()*10,3+r()*4,0,0,TAU);k.fill()}
+  k.beginPath();for(let x=x0;x<=x1;x+=8){const y=gy(x);if(x===x0)k.moveTo(x,y);else k.lineTo(x,y)}
+  k.strokeStyle=C.muted;k.lineWidth=2.5;k.stroke();
+  k.fillStyle=C.signal;k.globalAlpha=.4;k.fillRect(SAI.g1,SAI.base-3,SAI.g2-SAI.g1,8);k.globalAlpha=1;
+  [SAI.g1,SAI.g2].forEach((gx,i)=>{
+    const pu=0.5+0.5*Math.sin(clock*3+i*1.5);k.lineCap='round';
+    k.strokeStyle=C.ink;k.globalAlpha=.45;k.lineWidth=3;k.beginPath();k.moveTo(gx,34);k.lineTo(gx,110);k.stroke();
+    k.strokeStyle=C.signal;
+    k.globalAlpha=.10+.10*pu;k.lineWidth=28;k.beginPath();k.moveTo(gx,112);k.lineTo(gx,SAI.base-16);k.stroke();
+    k.globalAlpha=.25;k.lineWidth=16;k.stroke();
+    k.globalAlpha=1;k.lineWidth=7;k.stroke();
+    k.strokeStyle='#EFFFF6';k.globalAlpha=.9;k.lineWidth=2.5;k.stroke();
+    k.globalAlpha=1;k.lineCap='butt';
+    txt('Lampu hijau',gx,94,14,C.ink,'center',700);
+  });
+  k.strokeStyle=C.ink;k.globalAlpha=.55;k.lineWidth=1.8;
+  k.beginPath();k.moveTo(SAI.g1,64);k.lineTo(SAI.g2,64);k.moveTo(SAI.g1,58);k.lineTo(SAI.g1,70);k.moveTo(SAI.g2,58);k.lineTo(SAI.g2,70);k.stroke();k.globalAlpha=1;
+  txt(S.g==='m'?'Area lari kecil (laki-laki)':'Area ini tetap berjalan (perempuan)',(SAI.g1+SAI.g2)/2,50,14,C.ink,'center',600);
+  txt('Bukit Shafa',SAI.x0,104,18,C.ink,'center',700);
+  txt('Bukit Marwah',SAI.x1,104,18,C.ink,'center',700);
+  txt('Tanjakan Shafa',140,318,14,C.ink,'center',600);
+  txt('Tanjakan Marwah',660,318,14,C.ink,'center',600);
+  const sa=S.sa;
+  if(tgt){k.strokeStyle=C.accent;k.lineWidth=2.5;k.globalAlpha=.7;const ty=gy(tgt.x);circle(k,tgt.x,ty-4,8+3*Math.sin(clock*8));k.stroke();k.globalAlpha=1}
+  const pr=sa.pray>0||sa.done;
+  drawSide(k,sa.x,gy(sa.x),sa.done?-1:sa.f,sa.gait,{g:S.g,run:isFast()&&sa.spd>5,up:pr});
+  // end markers
+  [[SAI.x0,'Shafa'],[SAI.x1,'Marwah']].forEach(e=>{
+    k.strokeStyle=C.gold;k.lineWidth=2;k.setLineDash([4,5]);k.beginPath();k.moveTo(e[0],gy(e[0])-1);k.lineTo(e[0],gy(e[0])-66);k.stroke();k.setLineDash([]);
+  });
+}
+function sceneSa(dt,snap){
+  cam.s=CH/SAI.H;cam.vw=CW/cam.s;cam.vh=SAI.H;
+  camFollow(S.sa.x,SAI.H/2,dt,snap);cam.y=SAI.H/2;clampCam(-60,SAI.W+60,0,SAI.H);
+  screenMode();ctx.fillStyle=C.stage;ctx.fillRect(0,0,CW,CH);
+  applyCam();drawSai();
+}
+
+/* ---------- TAHALUL ---------- */
+const TA={cx:320,cy:262,rx:92,ry:108,TIP:400,TOP:50};
+const lockX=y=>320+Math.sin(y*0.045)*12;
+function buildTa(kind){
+  const r=rnd(11),st=[];
+  if(kind==='halq'){
+    for(let i=0;i<300;i++){
+      const ph=Math.PI+0.18+r()*(Math.PI-0.36),rr=0.55+r()*0.45;
+      st.push({x:TA.cx+TA.rx*rr*Math.cos(ph),y:TA.cy+TA.ry*rr*Math.sin(ph),ang:ph+(r()-0.5)*0.5,len:26+r()*18,sway:(r()-0.5)*14,cut:false});
+    }
+  }
+  S.ta={kind:kind,strands:st,parts:[],px:TA.cx,py:TA.cy-40,down:false,prog:0,cutN:0,done:false,scY:200,piece:null,hint:''};
+  lastKey='';
+}
+function initTa(){S.p={x:0,y:0,f:0,gait:0,spd:0,raise:0};tgt=null;buildTa(S.g==='f'?'taqshir':'halq')}
+function spawnHair(x,y,n){const ta=S.ta;for(let i=0;i<n;i++)ta.parts.push({x:x,y:y,vx:(Math.random()-0.5)*60,vy:-20+Math.random()*30,rot:Math.random()*TAU,l:9+Math.random()*10,life:0})}
+function finishTa(msg){
+  const ta=S.ta;ta.done=true;ta.prog=1;S.done.tahalul=true;S.sun.tahalul=1;
+  ok(msg);summaryT=2.2;
+}
+function taPointer(px,py,isDown){
+  const ta=S.ta;if(!ta||ta.done)return;
+  const w=toWorld(px,py);
+  if(ta.kind==='halq'){
+    ta.px=w[0];ta.py=w[1];ta.down=true;
+    let n=0;
+    ta.strands.forEach(s=>{
+      if(s.cut)return;
+      const tx=s.x+Math.cos(s.ang)*s.len,ty=s.y+Math.sin(s.ang)*s.len;
+      if(Math.hypot(s.x-w[0],s.y-w[1])<24||Math.hypot(tx-w[0],ty-w[1])<24){s.cut=true;ta.cutN++;n++;if(n%3===0)spawnHair(tx,ty,1)}
+    });
+    ta.prog=ta.cutN/ta.strands.length;
+    if(ta.prog>=0.97){ta.strands.forEach(s=>{s.cut=true});finishTa('Tahalul selesai: halq (cukur gundul).')}
+  }else ta.scY=clamp(w[1],130,TA.TIP-2);
+}
+function taUp(){if(S.ta)S.ta.down=false}
+function actTa(){
+  const ta=S.ta;
+  if(ta.done){openSummary();return}
+  if(ta.kind==='halq'){tip('Cukur dengan menggeser pointer atau jari di atas rambut sampai habis.');return}
+  const d=TA.TIP-ta.scY;
+  if(d<16){tip('Terlalu sedikit. Geser gunting ke atas, kira-kira satu ruas jari dari ujung rambut.');return}
+  if(d>44){tip('Terlalu banyak. Geser gunting ke bawah, cukup kira-kira satu ruas jari.');return}
+  ta.piece={y0:ta.scY,y1:TA.TIP,dy:0,vy:0,rot:0,life:0};
+  finishTa('Tahalul selesai: taqshir, rambut dipotong kira-kira satu ruas jari.');
+}
+function updTa(dt){
+  const ta=S.ta;if(!ta)return;
+  if(ta.kind==='taqshir'&&!ta.done){
+    const dy=((K['s']||K['arrowdown'])?1:0)-((K['w']||K['arrowup'])?1:0);
+    if(dy)ta.scY=clamp(ta.scY+dy*120*dt,130,TA.TIP-2);
+  }
+  ta.parts.forEach(p=>{p.vy+=420*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.rot+=dt*3;p.life+=dt});
+  ta.parts=ta.parts.filter(p=>p.y<560&&p.life<2.4);
+  if(ta.piece){const q=ta.piece;q.vy+=500*dt;q.dy+=q.vy*dt;q.rot+=dt*1.4;q.life+=dt;if(q.life>1.8)ta.piece=null}
+}
+function guideTa(){
+  const ta=S.ta;
+  if(ta.done)return{k:'Tahalul selesai',s:'Umrah sempurna',d:'Larangan ihram berakhir dan pakaian ihram boleh diganti. Rangkaian umrah: ihram, thawaf, sa\'i, tahalul.',ar:'الْحَمْدُ لِلَّهِ',tr:'Segala puji bagi Allah.',next:'Lihat ringkasan'};
+  if(ta.kind==='halq')return{k:'Tahalul · Halq',s:'Cukur rambut hingga gundul',d:'Geser pointer atau jari di atas rambut untuk mencukur. Halq lebih utama bagi laki-laki.'};
+  const d=TA.TIP-ta.scY;
+  const st=d<16?'Geser gunting sedikit ke atas':d>44?'Terlalu banyak, geser ke bawah':'Posisi sudah pas, tekan Potong';
+  return{k:'Tahalul · Taqshir',s:st,d:S.g==='f'?'Perempuan memotong ujung rambut kira-kira satu ruas jari, tidak mencukur. Geser gunting dengan pointer, jari, atau tombol W dan S.':"Taqshir berarti memotong rambut merata. Menurut mazhab Syafi'i, minimal tiga helai. Geser gunting dengan pointer, jari, atau tombol W dan S."};
+}
+function hudTa(){
+  const ta=S.ta;
+  return{l:ta.kind==='halq'?'Proses halq':'Proses taqshir',n:Math.round((ta.done?1:ta.prog)*100)+'%',b:ta.done?1:ta.prog};
+}
+function drawHeadMale(k){
+  k.fillStyle=C.pilgrim;k.strokeStyle=C.edge;k.lineWidth=3;
+  k.beginPath();k.ellipse(320,540,240,140,0,0,TAU);k.fill();k.stroke();
+  k.globalAlpha=.35;k.lineWidth=2;k.beginPath();k.moveTo(230,430);k.quadraticCurveTo(300,500,360,520);k.moveTo(410,425);k.quadraticCurveTo(380,480,350,520);k.stroke();k.globalAlpha=1;
+  k.fillStyle=C.skin;k.lineWidth=2;
+  k.fillRect(290,360,60,90);
+  k.beginPath();k.ellipse(TA.cx-TA.rx+2,TA.cy+16,14,25,0,0,TAU);k.fill();k.stroke();
+  k.beginPath();k.ellipse(TA.cx+TA.rx-2,TA.cy+16,14,25,0,0,TAU);k.fill();k.stroke();
+  k.beginPath();k.ellipse(TA.cx,TA.cy,TA.rx,TA.ry,0,0,TAU);k.fill();k.globalAlpha=.7;k.stroke();k.globalAlpha=1;
+  k.strokeStyle=C.edge;k.lineWidth=2.5;k.lineCap='round';
+  k.beginPath();k.arc(285,300,10,0.15*Math.PI,0.85*Math.PI);k.stroke();
+  k.beginPath();k.arc(355,300,10,0.15*Math.PI,0.85*Math.PI);k.stroke();
+  k.beginPath();k.moveTo(268,274);k.quadraticCurveTo(285,266,302,273);k.moveTo(338,273);k.quadraticCurveTo(355,266,372,274);k.stroke();
+  k.beginPath();k.moveTo(320,302);k.quadraticCurveTo(312,332,322,336);k.stroke();
+  k.beginPath();k.arc(320,344,24,0.2*Math.PI,0.8*Math.PI);k.stroke();
+  k.lineCap='butt';
+}
+function drawTa(){
+  const k=ctx,ta=S.ta;
+  if(ta.kind==='halq'){
+    drawHeadMale(k);
+    k.strokeStyle=C.hair;k.lineWidth=3;k.lineCap='round';k.beginPath();
+    ta.strands.forEach(s=>{
+      if(s.cut)return;
+      const tx=s.x+Math.cos(s.ang)*s.len,ty=s.y+Math.sin(s.ang)*s.len;
+      k.moveTo(s.x,s.y);k.quadraticCurveTo((s.x+tx)/2+s.sway*0.5,(s.y+ty)/2,tx,ty);
+    });
+    k.stroke();k.lineCap='butt';
+    if(ta.done){k.fillStyle='#fff';k.globalAlpha=.22;k.beginPath();k.ellipse(300,200,40,20,-0.4,0,TAU);k.fill();k.globalAlpha=1}
+    if(!ta.done){
+      k.save();k.translate(ta.px,ta.py);k.rotate(-0.15);
+      k.strokeStyle=C.edge;k.lineWidth=1.5;
+      k.fillStyle=C.ink;k.beginPath();k.rect(8,-5,78,13);k.fill();
+      k.fillStyle='#d3dade';k.beginPath();k.rect(-30,-9,44,13);k.fill();k.stroke();
+      k.restore();
+    }
+    txt('Halq: cukur gundul',320,34,22,C.ink,'center',700);
+  }else{
+    // lock of hair, close-up
+    const lastY=ta.done?ta.scY:TA.TIP;
+    const path=(y0,y1,off)=>{k.beginPath();for(let y=y0;y<=y1;y+=4){const x=lockX(y)+(off||0);if(y===y0)k.moveTo(x,y);else k.lineTo(x,y)}};
+    k.lineCap='round';
+    k.strokeStyle=C.hair;k.lineWidth=28;path(TA.TOP,lastY,0);k.stroke();
+    k.strokeStyle=C.skin;k.globalAlpha=.0;k.stroke();k.globalAlpha=1;
+    k.strokeStyle=C.pilgrim;k.globalAlpha=.25;k.lineWidth=2;
+    for(let y=TA.TOP+8;y<lastY-6;y+=14){k.beginPath();k.moveTo(lockX(y)-12,y);k.lineTo(lockX(y+10)+12,y+10);k.stroke()}
+    k.globalAlpha=1;
+    k.strokeStyle=C.accent;k.lineWidth=8;k.beginPath();k.moveTo(lockX(90)-16,90);k.lineTo(lockX(90)+16,90);k.stroke();
+    k.lineCap='butt';
+    if(ta.piece){
+      const q=ta.piece;k.save();k.translate(0,q.dy);k.translate(lockX(q.y0),q.y0);k.rotate(q.rot*0.25);k.translate(-lockX(q.y0),-q.y0);
+      k.globalAlpha=Math.max(0,1-q.life/1.8);k.lineCap='round';k.strokeStyle=C.hair;k.lineWidth=28;path(q.y0,q.y1,0);k.stroke();k.restore();k.globalAlpha=1;k.lineCap='butt';
+    }
+    // reference: one finger segment
+    const fx=lockX(TA.TIP)+58;
+    k.fillStyle=C.skin;k.strokeStyle=C.edge;k.lineWidth=2;
+    k.beginPath();k.rect(fx-13,TA.TIP-28,26,28);k.fill();k.stroke();
+    k.beginPath();k.moveTo(fx-13,TA.TIP-28);k.lineTo(fx+13,TA.TIP-28);k.stroke();
+    txt('± 1 ruas jari',fx,TA.TIP+16,13,C.ink,'center',700);
+    k.fillStyle=C.gold;k.globalAlpha=.16;k.fillRect(lockX(TA.TIP-30)-60,TA.TIP-44,120,28);k.globalAlpha=1;
+    if(!ta.done){
+      const sx=lockX(ta.scY),sy=ta.scY,ok2=(TA.TIP-sy)>=16&&(TA.TIP-sy)<=44;
+      k.strokeStyle=ok2?C.signal:C.bad;k.lineWidth=2.5;k.setLineDash([6,5]);k.beginPath();k.moveTo(sx-80,sy);k.lineTo(sx+80,sy);k.stroke();k.setLineDash([]);
+      const op=0.1+0.1*(0.5+0.5*Math.sin(clock*9));
+      [-1,1].forEach(sg=>{
+        k.save();k.translate(sx+sg*0,sy);k.rotate(sg*op-(sg<0?0:0));
+        k.lineCap='round';k.strokeStyle=C.edge;k.lineWidth=7;k.beginPath();k.moveTo(-6,0);k.lineTo(sg*58,0);k.stroke();
+        k.strokeStyle='#d3dade';k.lineWidth=4;k.beginPath();k.moveTo(-6,0);k.lineTo(sg*58,0);k.stroke();
+        k.restore();
+      });
+      k.strokeStyle=C.ink;k.lineWidth=4;circle(k,sx-78,sy+8,10);k.stroke();circle(k,sx+78,sy+8,10);k.stroke();
+    }
+    txt('Taqshir: potong pendek',320,22,22,C.ink,'center',700);
+  }
+  k.strokeStyle=C.hair;k.lineWidth=2.5;k.lineCap='round';
+  ta.parts.forEach(p=>{k.globalAlpha=Math.max(0,1-p.life/2.4);k.beginPath();k.moveTo(p.x,p.y);k.lineTo(p.x+Math.cos(p.rot)*p.l,p.y+Math.sin(p.rot)*p.l);k.stroke()});
+  k.globalAlpha=1;k.lineCap='butt';
+}
+function sceneTa(){
+  cam.s=Math.min(CW/640,CH/520);cam.x=320;cam.y=260;cam.vw=CW/cam.s;cam.vh=CH/cam.s;
+  screenMode();ctx.fillStyle=C.stage;ctx.fillRect(0,0,CW,CH);
+  applyCam();drawTa();
+}
+
+/* ---------- FLOW AND UI ---------- */
+const NAMES={thawaf:'Thawaf',sai:"Sa'i",tahalul:'Tahalul'};
+function act(){
+  if(!S.on)return;
+  if(S.stage==='thawaf')actTh();else if(S.stage==='sai')actSa();else actTa();
+}
+let snapCam=true;
+function goStage(n){
+  S.stage=n;S.fast=false;tgt=null;joy.x=joy.y=0;
+  if(n==='thawaf')initTh();else if(n==='sai')initSa();else initTa();
+  cv.style.touchAction=n==='tahalul'?'none':'pan-y';
+  snapCam=true;lastKey='';
+}
+function nextStage(){
+  if(S.stage==='thawaf')goStage('sai');
+  else if(S.stage==='sai')goStage('tahalul');
+  else openSummary();
+}
+function resetAll(){
+  S.log=[];S.sun={ist:0,ramal:0,lari:0,doa:0,tahalul:0};S.done={thawaf:false,sai:false,tahalul:false};
+}
+function openSummary(){
+  const male=S.g==='m',bads=S.log.filter(l=>l.k==='bad').length;
+  const rows=[];
+  rows.push((S.done.thawaf?'Thawaf: 7 putaran selesai':'Thawaf: belum diselesaikan'));
+  rows.push((S.done.sai?"Sa'i: 7 perjalanan selesai":"Sa'i: belum diselesaikan"));
+  rows.push((S.done.tahalul?'Tahalul: selesai':'Tahalul: belum diselesaikan'));
+  rows.push('Koreksi yang muncul: '+bads+(bads===0?'. Bagus sekali.':'. Cek catatan latihan untuk mengulang bagian yang salah.'));
+  rows.push('Istilam: '+S.sun.ist+' dari 8 kesempatan');
+  if(male){rows.push('Ramal di putaran 1-3: '+S.sun.ramal+' dari 3');rows.push('Lari kecil di antara lampu hijau: '+S.sun.lari+' dari 7 perjalanan')}
+  rows.push('Berdoa di Shafa dan Marwah: '+S.sun.doa+' kali');
+  $('sumList').innerHTML=rows.map(r=>'<li></li>').join('');
+  Array.from($('sumList').children).forEach((li,i)=>{li.textContent=rows[i]});
+  $('ovEnd').hidden=false;summaryT=0;
+}
+function guide(){return S.stage==='thawaf'?guideTh():S.stage==='sai'?guideSa():guideTa()}
+function hud(){return S.stage==='thawaf'?hudTh():S.stage==='sai'?hudSa():hudTa()}
+function isDone(){return S.stage==='thawaf'?S.th.done:S.stage==='sai'?S.sa.done:S.ta.done}
+function ui(){
+  const g=guide(),h=hud(),done=isDone(),male=S.g==='m';
+  const key=JSON.stringify([g,h.l,h.n,Math.round(h.b*100),S.log.length,S.on,S.stage,S.fast,S.g,S.done,S.sun,S.ta&&S.ta.kind,done]);
+  if(key===lastKey)return;lastKey=key;
+  $('kicker').textContent=g.k;$('step').textContent=g.s;$('detail').textContent=g.d;
+  const ar=$('ar'),tr=$('tr');
+  ar.textContent=g.ar||'';ar.hidden=!g.ar;tr.textContent=g.tr||'';tr.hidden=!g.tr;
+  const nx=$('bNext');nx.hidden=!g.next;if(g.next)nx.textContent=g.next+'  →';
+  $('hLbl').textContent=h.l;$('hNum').textContent=h.n;$('hBar').style.width=Math.round(h.b*100)+'%';
+  const fb=$('bFast'),ab=$('bAct');
+  fb.hidden=S.stage==='tahalul';
+  fb.textContent=male?(S.stage==='thawaf'?'Ramal':'Lari kecil'):'Cepat';
+  fb.setAttribute('aria-pressed',String(S.fast));
+  if(S.stage==='thawaf')ab.textContent=done?"Lanjut ke Sa'i":'Istilam';
+  else if(S.stage==='sai')ab.textContent=done?'Lanjut ke Tahalul':'Berdoa';
+  else ab.textContent=done?'Lihat ringkasan':(S.ta.kind==='halq'?'Cukur: geser di rambut':'Potong');
+  ab.disabled=S.stage==='tahalul'&&!done&&S.ta.kind==='halq';
+  document.querySelectorAll('.chip[data-s]').forEach(b=>{
+    b.setAttribute('aria-pressed',String(b.dataset.s===S.stage));
+    b.classList.toggle('done',!!S.done[b.dataset.s==='sai'?'sai':b.dataset.s]);
+  });
+  const ox=$('opts');
+  if(S.stage==='tahalul'){
+    ox.hidden=false;ox.innerHTML='';
+    [['halq','Halq (cukur gundul)'],['taqshir','Taqshir (potong pendek)']].forEach(d=>{
+      const b=document.createElement('button');b.type='button';b.className='btn';b.textContent=d[1];
+      b.setAttribute('aria-pressed',String(S.ta.kind===d[0]));
+      if(d[0]==='halq'&&S.g==='f'){b.disabled=true;b.title='Perempuan cukup taqshir'}
+      b.onclick=()=>{buildTa(d[0])};ox.appendChild(b);
+    });
+  }else ox.hidden=true;
+  const ul=$('log');ul.innerHTML='';
+  if(!S.log.length){const li=document.createElement('li');li.className='empty';li.textContent='Belum ada catatan. Koreksi dan saran muncul di sini saat kamu berlatih.';ul.appendChild(li)}
+  S.log.slice(0,8).forEach(l=>{
+    const li=document.createElement('li'),tg=document.createElement('span'),tx=document.createElement('span');
+    tg.className='tg '+l.k;tg.textContent=l.k==='bad'?'Koreksi':l.k==='ok'?'Benar':'Saran';tx.textContent=l.m;
+    li.appendChild(tg);li.appendChild(tx);ul.appendChild(li);
+  });
+  const sx=$('sun');sx.innerHTML='';
+  const items=[['Istilam',S.sun.ist+'/8']];
+  if(male)items.push(['Ramal',S.sun.ramal+'/3'],['Lari kecil',S.sun.lari+'/7']);
+  items.push(['Berdoa',String(S.sun.doa)]);
+  items.forEach(it=>{const sp=document.createElement('span');sp.textContent=it[0]+' ';const b=document.createElement('b');b.textContent=it[1];sp.appendChild(b);sx.appendChild(sp)});
+}
+function drawPicks(){
+  [['cM','m'],['cF','f']].forEach(a=>{
+    const c=$(a[0]),k=c.getContext('2d');
+    k.setTransform(1,0,0,1,0,0);k.clearRect(0,0,c.width,c.height);
+    k.fillStyle=C.stage;k.beginPath();k.arc(96,96,92,0,TAU);k.fill();
+    drawTop(k,96,96,-Math.PI/2,0,{g:a[1],bare:a[1]==='m',sc:3.3});
+  });
+}
+function pick(g){
+  S.g=g;S.on=true;resetAll();$('ovStart').hidden=true;$('ovEnd').hidden=true;
+  goStage('thawaf');
+  toast(g==='m'?'Jamaah laki-laki: ihram dengan bahu kanan terbuka saat thawaf.':'Jamaah perempuan: mukena putih, berjalan biasa.','');
+}
+$('pickM').onclick=()=>pick('m');$('pickF').onclick=()=>pick('f');
+$('bWho').onclick=()=>{S.on=false;$('ovStart').hidden=false;$('ovEnd').hidden=true;drawPicks()};
+$('bAgain').onclick=()=>{resetAll();$('ovEnd').hidden=true;goStage('thawaf')};
+$('bClose').onclick=()=>{$('ovEnd').hidden=true};
+$('bFast').onclick=()=>{S.fast=!S.fast;lastKey=''};
+$('bAct').onclick=act;
+$('bNext').onclick=nextStage;
+document.querySelectorAll('.chip[data-s]').forEach(b=>b.onclick=()=>{if(S.on)goStage(b.dataset.s)});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{resize();snapCam=true;lastKey=''},80)});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{lastKey=''});
+
+function step(dt){
+  if(S.stage==='thawaf'){moveTh(dt);logicTh(dt)}
+  else if(S.stage==='sai'){moveSa(dt);logicSa(dt)}
+  else updTa(dt);
+}
+let last=performance.now(),frames=0;
+function frame(now){
+  const dt=Math.min(0.05,(now-last)/1000);last=now;frames++;
+  if(frames%30===0){readColors();if(!$('ovStart').hidden)drawPicks()}
+  clock+=dt;
+  if(S.on)step(dt);
+  if(S.stage==='thawaf')sceneTh(dt,snapCam);else if(S.stage==='sai')sceneSa(dt,snapCam);else sceneTa();
+  snapCam=false;
+  if(toastT>0){toastT-=dt;if(toastT<=0)$('toast').classList.remove('show')}
+  if(summaryT>0){summaryT-=dt;if(summaryT<=0)openSummary()}
+  ui();
+  requestAnimationFrame(frame);
+}
+window.__latihan={S:S,step:step,sdf:sdf,KW:KW,KH:KH,ptAt:ptAt};
+readColors();resize();initTh();drawPicks();
+requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>
