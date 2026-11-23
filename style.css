@@ -80,3 +80,9 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .app{width:100%;min-height:1200px;border:1px solid var(--line);border-radius:16px;background:#fff;display:block;margin-bottom:12px}
 .nav a{padding:10px 11px}@media(max-width:900px){.nav a{padding:12px 14px}}
 .news{width:100%;height:85vh;min-height:720px;border:1px solid var(--line);border-radius:16px;background:#fff;display:block;margin-bottom:12px}
+.nhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.ncard{display:block;background:#fff;border:1px solid #E7DCEB;border-radius:14px;overflow:hidden;color:inherit;text-decoration:none}
+.ncard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#EFE6F2}
+.ncard div{padding:16px}.ncard h3{font-size:1.05rem;line-height:1.35;margin:8px 0}
+.ntag{font-size:.75rem;font-weight:600;color:#7A2E78;text-transform:uppercase;letter-spacing:.06em}.ncard small{color:#6b5a73}
