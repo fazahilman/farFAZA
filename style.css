@@ -143,3 +143,6 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 @media(max-width:900px){.r30{margin-left:auto;margin-right:6px}.r30 img{height:32px}}
 .nav a{white-space:nowrap}.nav a{padding:10px 9px}.nav a.btn{padding:10px 18px}.r30 img{height:38px}.bar{gap:10px}
 @media(max-width:900px){.r30{order:2;margin-left:auto;margin-right:2px}.burger{order:3}.brand{order:1}.nav{order:4}.r30 img{height:30px}}
+
+.hone{max-width:460px;margin:0 auto}.hprice{display:flex;justify-content:space-between;align-items:baseline;background:#F3EAF6;border-radius:14px;padding:12px 16px;margin-bottom:14px}
+.hprice small{color:#5b4a66;font-weight:600}.hprice b{font-family:"EB Garamond",serif;font-size:2rem;color:#7A2E78}
