@@ -122,3 +122,12 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .days{list-style:none;padding:0;margin:20px 0}.days li{display:flex;gap:18px;padding:18px 0;border-top:1px solid #E7DCEB}.dnum{min-width:56px;text-align:center;background:#7A2E78;color:#fff;border-radius:12px;padding:8px 4px;height:fit-content}.dnum small{display:block;font-size:.6rem;letter-spacing:.1em}.dnum b{font-family:'EB Garamond',serif;font-size:1.5rem}
 .dcont h3{margin:2px 0 6px}.dcont p{margin:4px 0}.dd{color:#7A2E78;font-weight:600;font-size:.85rem}
 @media print{.top,.foot,.wafab,.hero,.ibtn,.cta{display:none!important}body{background:#fff}}
+
+.road{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
+.road>img{width:100%;height:auto;background:#fff;border:1px solid #E2BE6A;border-radius:20px;padding:18px}
+.rtl{display:flex;gap:0;margin-top:22px;border-top:2px solid #E2BE6A}
+.rtl span{flex:1;padding-top:12px;font-size:.85rem;color:#5b4a66;position:relative}
+.rtl span:before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:#7A2E78}
+.rtl span.now:before{background:#E2BE6A;box-shadow:0 0 0 4px rgba(226,190,106,.35)}
+.rtl b{display:block;font-family:"EB Garamond",serif;font-size:1.5rem;color:#24112F}
+@media(max-width:820px){.road{grid-template-columns:1fr;gap:24px}}
