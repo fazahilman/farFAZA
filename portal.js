@@ -25,22 +25,29 @@ function busy(btn,on,txt){btn.disabled=on;if(on){btn.dataset.t=btn.textContent;b
 
 // ---------- LOGIN
 function masuk(pesan){
-  root.innerHTML='<div class="px-box"><div class="px-tabs" role="tablist"><button id="tj" role="tab">Saya jamaah</button><button id="tm" role="tab">Mitra / tim Farfaza</button></div>'
+  root.innerHTML='<div class="px-box"><div class="px-tabs" role="tablist"><button id="tj" role="tab">Saya jamaah</button><button id="tm" role="tab">Mitra</button><button id="tt" role="tab">Tim Farfaza</button></div>'
   +'<form id="fj" class="px-form" autocomplete="off"><p class="px-hint">Masukkan nama dan tanggal lahir sesuai paspor untuk melihat kartu jamaah Anda.</p>'
   +'<label>Nama lengkap<input id="jn" required maxlength="120" placeholder="Nama sesuai paspor" autocomplete="name"></label>'
   +'<label>Tanggal lahir<input id="jt" type="date" required max="'+new Date().toISOString().slice(0,10)+'"></label>'
   +'<button class="btn" type="submit">Lihat kartu saya</button><p class="px-err" id="ej" role="alert"></p></form>'
-  +'<form id="fm" class="px-form" autocomplete="on" hidden><p class="px-hint">Khusus mitra dan tim Farfaza. Akun diberikan oleh Farfaza.</p>'
+  +'<form id="fm" class="px-form" autocomplete="on" hidden><p class="px-hint">Khusus mitra Farfaza dan akun pusat. Akun diberikan oleh Farfaza.</p>'
   +'<label>Nama akun<input id="ma" required maxlength="80" autocomplete="username" autocapitalize="none" spellcheck="false"></label>'
   +'<label>Kata sandi<input id="ms" type="password" required maxlength="100" autocomplete="current-password"></label>'
   +'<label class="px-chk"><input type="checkbox" id="mt"> Tampilkan kata sandi</label>'
   +'<button class="btn" type="submit">Masuk</button><p class="px-err" id="em" role="alert"></p></form>'
+  +'<form id="ft" class="px-form" autocomplete="on" hidden><p class="px-hint">Khusus karyawan Farfaza untuk melihat absensi dan rekap bulanan.</p>'
+  +'<label>Nama akun<input id="ta" required maxlength="80" autocomplete="username" autocapitalize="none" spellcheck="false"></label>'
+  +'<label>Kata sandi<input id="ts" type="password" required maxlength="100" autocomplete="current-password"></label>'
+  +'<button class="btn" type="submit">Masuk</button><p class="px-err" id="et" role="alert"></p></form>'
   +'<p class="px-fine">Data Anda dijaga sesuai UU Pelindungan Data Pribadi. Kartu jamaah tidak menampilkan NIK, paspor, maupun nomor telepon. Lupa data atau sandi? <a href="https://wa.me/6281213711159">Hubungi WhatsApp resmi 0812-1371-1159</a>.</p></div>';
-  var fj=$("#fj"),fm=$("#fm");
-  function tab(m){fj.hidden=m;fm.hidden=!m;$("#tj").setAttribute("aria-selected",!m);$("#tm").setAttribute("aria-selected",m);try{history.replaceState(null,"",m?"#mitra":"#jamaah")}catch(e){}}
-  $("#tj").onclick=function(){tab(false)};$("#tm").onclick=function(){tab(true)};
-  tab(location.hash==="#mitra");
-  if(pesan)(fm.hidden?$("#ej"):$("#em")).textContent=pesan;
+  var fj=$("#fj"),fm=$("#fm"),ft=$("#ft");
+  function tab(m){var k=m===true?"mitra":m==="tim"?"tim":"jamaah";fj.hidden=k!=="jamaah";fm.hidden=k!=="mitra";ft.hidden=k!=="tim";
+    $("#tj").setAttribute("aria-selected",k==="jamaah");$("#tm").setAttribute("aria-selected",k==="mitra");$("#tt").setAttribute("aria-selected",k==="tim");try{history.replaceState(null,"","#"+k)}catch(e){}}
+  $("#tj").onclick=function(){tab(false)};$("#tm").onclick=function(){tab(true)};$("#tt").onclick=function(){tab("tim")};
+  tab(location.hash==="#mitra"?true:location.hash==="#tim"?"tim":false);
+  if(pesan)(!fm.hidden?$("#em"):!ft.hidden?$("#et"):$("#ej")).textContent=pesan;
+  ft.onsubmit=function(e){e.preventDefault();var b=ft.querySelector("button");$("#et").textContent="";busy(b,true);
+    api({aksi:"loginTim",akun:$("#ta").value,sandi:$("#ts").value}).then(function(j){simpan(j);S.tim=j.tim;return tim()}).catch(function(er){$("#et").textContent=er.message;busy(b,false)})};
   $("#mt").onchange=function(){$("#ms").type=this.checked?"text":"password"};
   fj.onsubmit=function(e){e.preventDefault();var b=fj.querySelector("button");$("#ej").textContent="";busy(b,true);
     api({aksi:"loginJamaah",nama:$("#jn").value,tglLahir:$("#jt").value}).then(function(j){simpan(j);return api({aksi:"kartu"})}).then(kartu)
@@ -86,6 +93,39 @@ function wajibGanti(){
   +'<button class="btn" type="submit">Simpan</button><p class="px-err" id="eg" role="alert"></p></form></div>';
   $("#fg").onsubmit=function(e){e.preventDefault();var b=e.target.querySelector("button");busy(b,true);
     api({aksi:"gantiSandi",lama:$("#gl").value,baru:$("#gb").value}).then(beranda).catch(function(er){$("#eg").textContent=er.message;busy(b,false)})};
+}
+
+// ---------- TIM FARFAZA (absensi)
+var HARI=["Min","Sen","Sel","Rab","Kam","Jum","Sab"];
+function bulanNama(k){var m=String(k).match(/^(\d{4})-(\d{2})$/);return m?BLN[+m[2]-1]+" "+m[1]:k}
+function tglPendek(s){var m=String(s).match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?(+m[3])+" "+BLN[+m[2]-1].slice(0,3):s}
+function timKerangka(isi){
+  root.innerHTML='<div class="px-dash"><div class="px-top"><b>Tim Farfaza</b><span>'+esc((S.tim&&S.tim.nama)||"")+'</span><button class="btn ghost small" id="tk">Keluar</button></div><div id="pv">'+isi+'</div></div>';
+  $("#tk").onclick=function(){keluar()};
+}
+function tim(bulan,nomor){
+  timKerangka('<p class="px-load">Memuat…</p>');
+  return api({aksi:"absensi",bulan:bulan||"",nomor:nomor||""}).then(function(j){
+    S.tim={nomor:j.nomor,nama:j.nama};var r=j.saya.ringkas,h="";
+    h+='<div class="px-bar"><label>Bulan <select id="tb">'+j.daftarBulan.map(function(b){return '<option value="'+b+'"'+(b===j.bulan?' selected':'')+'>'+bulanNama(b)+'</option>'}).join("")+'</select></label>'
+      +(j.tim?'<label>Karyawan <select id="tn">'+j.tim.map(function(x){return '<option value="'+esc(x.nomor)+'"'+(x.nomor===j.saya.nomor?' selected':'')+'>'+esc(x.nama)+'</option>'}).join("")+'</select></label>':'')+'</div>';
+    h+='<div class="px-nm px-nm2">'+esc(j.saya.nama)+' <small>'+esc(j.saya.nomor)+'</small></div>';
+    if(r){h+='<div class="px-stats"><div><b>'+r.hadir+'<small>/'+r.hariKerja+'</small></b><span>Hari hadir</span></div><div><b>'+r.tepatWaktu+'</b><span>Tepat waktu</span></div><div><b>'+r.terlambat+'</b><span>Terlambat'+(r.menitTerlambat?' ('+r.menitTerlambat+' menit)':'')+'</span></div><div><b>'+r.tidakHadir+'</b><span>Tidak hadir</span></div><div><b>'+r.lupaScan+'</b><span>Lupa scan</span></div><div><b>'+r.jamKerja+'</b><span>Jam kerja</span></div></div>'}
+    else h+='<p class="px-hint">Belum ada data absen untuk bulan ini.</p>';
+    h+='<p class="px-hint">Jadwal masuk '+esc(j.jadwal.masuk)+', pulang '+esc(j.jadwal.pulang)+' (Sabtu '+esc(j.jadwal.pulangSabtu)+'). Hari kerja dihitung dari hari yang dipakai absen oleh tim.</p>';
+    var rinci=j.saya.rinci.filter(function(x){return x.status&&!/^Libur/.test(x.status)||x.masuk||x.pulang});
+    h+=rinci.length?'<h3>Absen harian</h3>'+tabel(["Tanggal","Masuk","Pulang","Status"],rinci.slice().reverse().map(function(x){
+      var cls=x.status==="Tepat waktu"?"ok":x.status==="Tidak hadir"?"bad":"warn";
+      return [HARI[x.hari]+", "+tglPendek(x.tgl),x.masuk||"—",x.pulang||"—",'<em class="px-st '+cls+'">'+esc(x.status)+'</em>'+(x.ket?' <small>'+esc(x.ket)+'</small>':'')]})):'';
+    if(j.tim){h+='<h3>Rekap tim · '+bulanNama(j.bulan)+'</h3>'+tabel(["Nama","Hadir","Tepat waktu","Terlambat","Tidak hadir","Lupa scan"],j.tim.map(function(x){var y=x.ringkas;
+      return [esc(x.nama),y?y.hadir+"/"+y.hariKerja:"—",y?y.tepatWaktu:"—",y?y.terlambat:"—",y?y.tidakHadir:"—",y?y.lupaScan:"—"]}))}
+    h+='<details class="px-gs"><summary>Ganti kata sandi</summary><form id="fg2" class="px-form"><label>Kata sandi lama<input id="g1" type="password" required autocomplete="current-password"></label><label>Kata sandi baru (min. 6 karakter)<input id="g2" type="password" required minlength="6" autocomplete="new-password"></label><button class="btn small">Simpan</button><p class="px-err" id="eg2" role="alert"></p></form></details>';
+    $("#pv").innerHTML=h;
+    $("#tb").onchange=function(){tim(this.value,j.tim?$("#tn").value:"")};
+    if(j.tim)$("#tn").onchange=function(){tim($("#tb").value,this.value)};
+    $("#fg2").onsubmit=function(e){e.preventDefault();var b=e.target.querySelector("button");busy(b,true);
+      api({aksi:"gantiSandi",lama:$("#g1").value,baru:$("#g2").value}).then(function(){$("#eg2").className="px-ok";$("#eg2").textContent="Kata sandi diganti.";busy(b,false,"Simpan");$("#g1").value=$("#g2").value=""}).catch(function(er){$("#eg2").className="px-err";$("#eg2").textContent=er.message;busy(b,false,"Simpan")})};
+  }).catch(function(er){$("#pv").innerHTML='<p class="px-err">'+esc(er.message)+'</p>'});
 }
 
 // ---------- DASHBOARD STAF
@@ -241,9 +281,9 @@ function money(v){var n=Number(String(v==null?"":v).replace(/\D/g,""));return n?
 function gambar(c,W,H,d){
   var my=++gambarId;
   return Promise.all([fontMS(),document.fonts.load("italic 700 60px 'EB Garamond'"),document.fonts.load("700 60px 'EB Garamond'"),document.fonts.load("500 30px 'DM Sans'"),document.fonts.load("600 30px 'DM Sans'"),
-    muat("img/logo_farfaza.png"),d.foto?muat(d.foto):Promise.resolve(null),muat(d.up.mk||"img/haram_night.jpg"),muat(d.up.md||"img/jamaah_nabawi.jpg"),d.up.tb?muat(d.up.tb):Promise.resolve(null)]).then(function(a){
+    muat("img/logo_farfaza.png"),d.foto?muat(d.foto):Promise.resolve(null),muat("img/brosur_road30.png"),muat(d.up.mk||"img/haram_night.jpg"),muat(d.up.md||"img/jamaah_nabawi.jpg"),d.up.tb?muat(d.up.tb):Promise.resolve(null)]).then(function(a){
     if(c.id==="bc"&&my!==gambarId)return;
-    c.width=W;c.height=H;var ctx=c.getContext("2d"),k=W/1080,T=d.tema,a4=d.mode==="a4",logo=a[5],hero=a[6],img={mk:a[7],md:a[8],tb:a[9]};
+    c.width=W;c.height=H;var ctx=c.getContext("2d"),k=W/1080,T=d.tema,a4=d.mode==="a4",logo=a[5],hero=a[6],r30=a[7],img={mk:a[8],md:a[9],tb:a[10]};
     var SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",MON="'Montserrat','DM Sans',Arial,sans-serif";
     var M=36*k,CW=W-2*M,gap=14*k,PU="#4B1670",INK="#2A1238";
     function tx(t,x,y,f,col,al){ctx.font=f;ctx.fillStyle=col;ctx.textAlign=al||"left";ctx.fillText(t,x,y)}
@@ -276,8 +316,10 @@ function gambar(c,W,H,d){
       var tw=CW-(cx+r+14*k-M)-16*k,t1=d.catatan||"Program dan harga dapat berubah sesuai kondisi.",col=dark?"#fff":INK,tcx=cx+r+14*k;
       if(d.rekening){fitF(t1,tw,"500",SANS,20*k,13*k);tx(ell(t1,tw),tcx,cy-4*k,ctx.font,col);var t2="Pembayaran hanya ke rekening resmi: "+d.rekening;fitF(t2,tw,"600",SANS,19*k,12*k);tx(ell(t2,tw),tcx,cy+24*k,ctx.font,dark?T.gold2:PU)}
       else{fitF(t1,tw,"500",SANS,21*k,13*k);tx(ell(t1,tw),tcx,cy+7*k,ctx.font,col)}}
-    function logo29(x,y){ctx.fillStyle=PU;ctx.textAlign="left";ctx.font="italic 700 "+64*k+"px "+SERIF;ctx.fillText("29",x,y+50*k);ctx.font="italic 700 "+22*k+"px "+SERIF;ctx.fillText("th",x+62*k,y+24*k);ctx.font="italic 600 "+19*k+"px "+SERIF;ctx.fillStyle=T.gold;ctx.fillText("Melayani",x+4*k,y+72*k);
-      if(logo){var lh=78*k,lw=logo.width*lh/logo.height;ctx.drawImage(clearBg(logo),x+112*k,y+2*k,lw,lh)}}
+    function kepala(){
+      var lh=64*k;if(logo){var lw=logo.width*lh/logo.height;ctx.drawImage(clearBg(logo),M,14*k,lw,lh)}
+      if(r30){var rh=60*k,rw=r30.width*rh/r30.height;ctx.save();ctx.shadowColor="rgba(255,255,255,.95)";ctx.shadowBlur=14*k;ctx.drawImage(r30,W-M-rw,16*k,rw,rh);ctx.drawImage(r30,W-M-rw,16*k,rw,rh);ctx.restore()}
+      var iz="Izin Umroh (PPIU) No. U.139/2020  •  Izin Haji (PIHK) No. 772/2019";fitF(iz,CW,"600",SANS,15*k,10*k);tx(iz,M,14*k+lh+24*k,ctx.font,"#5A4670","left")}
     function photoMask(im,px,py,pw,ph){var t=document.createElement("canvas");t.width=Math.max(2,Math.round(pw));t.height=Math.max(2,Math.round(ph));var tc=t.getContext("2d");cover(tc,im,0,0,t.width,t.height);tc.globalCompositeOperation="destination-in";
       var g1=tc.createLinearGradient(0,0,t.width*0.62,0);g1.addColorStop(0,"rgba(0,0,0,0)");g1.addColorStop(1,"rgba(0,0,0,1)");tc.fillStyle=g1;tc.fillRect(0,0,t.width,t.height);
       var g2=tc.createLinearGradient(0,0,0,t.height);g2.addColorStop(0,"rgba(0,0,0,1)");g2.addColorStop(0.7,"rgba(0,0,0,1)");g2.addColorStop(1,"rgba(0,0,0,0)");tc.fillStyle=g2;tc.fillRect(0,0,t.width,t.height);ctx.drawImage(t,px,py)}
@@ -297,7 +339,7 @@ function gambar(c,W,H,d){
       var yS=pillY+pH+44*k,sub=[d.hari?d.hari+" HARI":"",d.maskapai?d.maskapai.toUpperCase():""].filter(Boolean).join(" • "),yD=yS+(d.tanggal?42*k:0),yEnd=(d.tanggal?yD:yS)+30*k;
       var chipY=yEnd;if(chips.length)yEnd+=46*k+18*k;
       if(hero)photoMask(hero,W*0.42,0,W*0.58,Math.min(yEnd+10*k,H*0.52));else{ctx.fillStyle="rgba(123,53,168,.12)";ctx.fillRect(W*0.5,0,W*0.5,yEnd*0.8)}
-      logo29(M,20*k);
+      kepala();
       ctx.save();ctx.shadowColor="rgba(255,255,255,.95)";ctx.shadowBlur=26*k;ls.forEach(function(t,i){var pur=(i%2===1)||ls.length===1;ctx.font="800 "+fs+"px "+MON;ctx.textAlign="left";ctx.fillStyle=pur?grad(M,0,M+CW*0.5,0,[T.pu2,PU]):"#14091C";ctx.fillText(t,M,y0+fs*(i+0.82));ctx.fillText(t,M,y0+fs*(i+0.82))});ctx.restore();
       goldBar(M,yH+8*k,200*k,9*k);
       rr(ctx,M,pillY,pW,pH,pH/2);ctx.fillStyle=grad(M,pillY,M+pW,pillY,[PU,T.pu2]);ctx.fill();tx(pt,M+pW/2,pillY+pH/2+ps*0.36,"800 "+ps+"px "+MON,T.pill,"center");
@@ -344,7 +386,7 @@ function gambar(c,W,H,d){
       ctx.save();curve();ctx.clip();if(hero)cover(ctx,hero,0,0,W,pH+60*k);else{ctx.fillStyle="#B9A0DC";ctx.fillRect(0,0,W,pH+60*k)}
       var wg=ctx.createLinearGradient(0,0,W*0.8,0);wg.addColorStop(0,"rgba(255,255,255,.98)");wg.addColorStop(0.5,"rgba(255,255,255,.9)");wg.addColorStop(0.8,"rgba(255,255,255,.35)");wg.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=wg;ctx.fillRect(0,0,W,pH+60*k);ctx.restore();
       ctx.save();curve();ctx.lineWidth=6*k;ctx.strokeStyle=grad(0,0,W,0,[T.gold,T.gold2,T.gold]);ctx.clip();ctx.beginPath();ctx.moveTo(W,pH-70*k);ctx.bezierCurveTo(W*0.72,pH+14*k,W*0.34,pH-16*k,0,pH+44*k);ctx.stroke();ctx.restore();
-      logo29(M,20*k);
+      kepala();
       var h=headTxt(CW*0.62,128*k,50*k,3),ls=h.ls,fs=h.fs,y=150*k;ctx.textAlign="left";ctx.save();ctx.shadowColor="rgba(255,255,255,.95)";ctx.shadowBlur=22*k;
       ls.forEach(function(t,i){var kick=ls.length>=3&&i===0,s=kick?fs*0.55:fs,fam=SERIF;ctx.font=(kick?"italic ":"")+"700 "+s+"px "+fam;var tt=kick?t.charAt(0)+t.slice(1).toLowerCase():t;if(kick){tt=t.toLowerCase().replace(/(^|\s)\S/g,function(m){return m.toUpperCase()})}
         var by=y+s*0.85;ctx.font=(kick?"italic ":"")+"700 "+s+"px "+fam;var gold=(!kick&&(ls.length>=3?i===1:i===0));ctx.fillStyle=gold?grad(M,by-s*0.8,M,by,[T.gold2,T.gold,"#8A5E0F"]):PU;ctx.fillText(kick?tt:t,M,by);y+=s*(kick?0.8:0.92)});ctx.restore();
@@ -383,8 +425,7 @@ function gambar(c,W,H,d){
       var v2=T.v===2,HD=T.hd||"#8E24AA",GR="#E6E1EF",lhC=27*k,fsC=18*k,hh=42*k;
       ctx.fillStyle=grad(0,0,0,H,["#F4EEFA","#FFFFFF","#FFFFFF"]);ctx.fillRect(0,0,W,H);
       ctx.strokeStyle="rgba(123,53,168,.05)";ctx.lineWidth=2*k;for(var gx=-40*k;gx<W;gx+=90*k){for(var gy=0;gy<H;gy+=104*k){var ox=((gy/(104*k))%2)?45*k:0;ctx.beginPath();for(var q=0;q<6;q++){var an=Math.PI/3*q+Math.PI/6,px=gx+ox+30*k*Math.cos(an)+30*k,py2=gy+30*k*Math.sin(an)+30*k;q?ctx.lineTo(px,py2):ctx.moveTo(px,py2)}ctx.closePath();ctx.stroke()}}
-      if(logo){var lh=64*k,lw=logo.width*lh/logo.height;ctx.drawImage(clearBg(logo),M,16*k,lw,lh)}
-      tx("Anggota HIMPUH • PPIU U.139/2020 • PIHK 772/2019",W-M,52*k,"500 "+16*k+"px "+SANS,"#6B5A78","right");
+      kepala();
       var words=String(d.judul||"").split(/\s+/).filter(Boolean),cut=Math.max(1,Math.round(words.length*0.4)),sz=124*k,one=words.join(" "),lines;
       ctx.font="700 "+sz+"px "+SERIF;while(ctx.measureText(one).width>CW&&sz>72*k){sz-=3*k;ctx.font="700 "+sz+"px "+SERIF}
       if(ctx.measureText(one).width<=CW)lines=[words];else{var half=Math.ceil(words.length/2);lines=[words.slice(0,half),words.slice(half)];sz=100*k;for(;;){ctx.font="700 "+sz+"px "+SERIF;if(lines.every(function(l){return ctx.measureText(l.join(" ")).width<=CW})||sz<=50*k)break;sz-=3*k}}
@@ -452,5 +493,5 @@ function gambar(c,W,H,d){
 }
 
 // ---------- MULAI
-if(S.token){ (S.peran==="jamaah"?api({aksi:"kartu"}).then(kartu):beranda()).catch(function(){masuk()}) } else masuk();
+if(S.token){ (S.peran==="jamaah"?api({aksi:"kartu"}).then(kartu):S.peran==="karyawan"?tim():beranda()).catch(function(){masuk()}) } else masuk();
 })();
