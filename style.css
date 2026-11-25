@@ -214,3 +214,7 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .progs .prog>svg{width:44px;height:44px;flex:none}
 .progs .prog h3{font-size:1.1rem}.progs .prog .tag{font-size:13px;margin:0 0 6px}.progs .prog p{font-size:14.5px;margin:0 0 10px;line-height:1.5}
 @media(max-width:700px){.progs{grid-template-columns:1fr}}
+
+.dinc{margin:10px 0 4px;border-top:1px dashed var(--line);padding-top:8px}.dinc summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--pur);padding:4px 0}
+.dinc2 h4{margin:12px 0 4px;font-size:14px}.dinc2 ul{margin:0;padding:0;list-style:none;font-size:13.5px}.dinc2 li{padding:4px 0 4px 20px;border-bottom:1px solid var(--line);position:relative}
+.dinc2 .ok li:before{content:"✓";position:absolute;left:0;color:var(--pur);font-weight:700}.dinc2 .no li:before{content:"–";position:absolute;left:4px;color:#8a7a94;font-weight:700}
