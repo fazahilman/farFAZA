@@ -354,3 +354,12 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .mk-posters span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;font-weight:600;font-size:.92rem}
 .mk-posters small{flex:none;color:#7A2E78;font-size:.78rem;background:#F3EAF6;border-radius:999px;padding:5px 10px}
 @media(max-width:820px){.mk-posters{grid-template-columns:1fr 1fr}}@media(max-width:520px){.mk-posters{grid-template-columns:1fr}}
+
+/* kontak: tabel mitra */
+.mt-h{font-family:'EB Garamond',serif;font-size:1.7rem;margin:40px 0 6px;color:var(--plum)}.mt-sub{margin:0 0 18px;color:#5a4668;max-width:720px}
+.mt-w{background:#fff;border:1px solid #E7DCEB;border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(36,17,47,.07)}
+.mt{width:100%;border-collapse:collapse;font-size:.95rem}.mt th{background:#F3EAF6;color:#7A2E78;text-align:left;font-weight:600;padding:12px 18px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.mt td{padding:14px 18px;border-top:1px solid #F0E8F3;vertical-align:middle;line-height:1.5}.mt td:first-child{width:22%}.mt td:nth-child(2){width:26%;white-space:nowrap}
+.mt-av{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#7A2E78;color:#fff;font:600 1rem 'EB Garamond',serif;margin-right:10px;vertical-align:middle}
+.mt-na{color:#8a7a94;font-size:.88rem}
+@media(max-width:720px){.mt thead{display:none}.mt,.mt tbody,.mt tr,.mt td{display:block;width:100%!important}.mt tr{padding:12px 16px;border-top:1px solid #F0E8F3}.mt tr:first-child{border-top:0}.mt td{border:0;padding:3px 0;white-space:normal!important}.mt td:before{content:attr(data-l);display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#7b6b84}}
