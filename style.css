@@ -206,3 +206,5 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .px-kb{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 1.5rem}
 .px-km{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:6px}.px-km>div{flex:0 1 300px;min-width:0}.px-kmimg{width:100%;height:auto;display:block;border-radius:16px;box-shadow:0 6px 22px rgba(60,0,55,.18)}
 .px-kj{flex:0 1 460px!important}
+@media(max-width:600px){.rtl{flex-wrap:wrap;row-gap:18px}.rtl span{flex:1 1 33%}}
+.rtl span{padding-right:10px}
