@@ -208,3 +208,9 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .px-kj{flex:0 1 460px!important}
 @media(max-width:600px){.rtl{flex-wrap:wrap;row-gap:18px}.rtl span{flex:1 1 33%}}
 .rtl span{padding-right:10px}
+
+.progs{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.progs .prog{margin:0;padding:16px 18px;gap:14px;border-radius:12px}
+.progs .prog>svg{width:44px;height:44px;flex:none}
+.progs .prog h3{font-size:1.1rem}.progs .prog .tag{font-size:13px;margin:0 0 6px}.progs .prog p{font-size:14.5px;margin:0 0 10px;line-height:1.5}
+@media(max-width:700px){.progs{grid-template-columns:1fr}}
