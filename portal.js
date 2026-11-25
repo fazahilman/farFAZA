@@ -25,7 +25,7 @@ function busy(btn,on,txt){btn.disabled=on;if(on){btn.dataset.t=btn.textContent;b
 
 // ---------- LOGIN
 function masuk(pesan){
-  root.innerHTML='<div class="px-box"><div class="px-tabs" role="tablist"><button id="tj" role="tab">Saya jamaah</button><button id="tm" role="tab">Mitra</button><button id="tt" role="tab">Tim Farfaza</button></div>'
+  root.innerHTML='<div class="px-box"><div class="px-tabs" role="tablist"><button id="tj" role="tab">Saya jamaah</button><button id="tm" role="tab">Mitra</button></div>'
   +'<form id="fj" class="px-form" autocomplete="off"><p class="px-hint">Masukkan nama dan tanggal lahir sesuai paspor untuk melihat kartu jamaah Anda.</p>'
   +'<label>Nama lengkap<input id="jn" required maxlength="120" placeholder="Nama sesuai paspor" autocomplete="name"></label>'
   +'<label>Tanggal lahir<input id="jt" type="date" required max="'+new Date().toISOString().slice(0,10)+'"></label>'
@@ -35,19 +35,13 @@ function masuk(pesan){
   +'<label>Kata sandi<input id="ms" type="password" required maxlength="100" autocomplete="current-password"></label>'
   +'<label class="px-chk"><input type="checkbox" id="mt"> Tampilkan kata sandi</label>'
   +'<button class="btn" type="submit">Masuk</button><p class="px-err" id="em" role="alert"></p></form>'
-  +'<form id="ft" class="px-form" autocomplete="on" hidden><p class="px-hint">Khusus karyawan Farfaza untuk melihat absensi dan rekap bulanan.</p>'
-  +'<label>Nama akun<input id="ta" required maxlength="80" autocomplete="username" autocapitalize="none" spellcheck="false"></label>'
-  +'<label>Kata sandi<input id="ts" type="password" required maxlength="100" autocomplete="current-password"></label>'
-  +'<button class="btn" type="submit">Masuk</button><p class="px-err" id="et" role="alert"></p></form>'
   +'<p class="px-fine">Data Anda dijaga sesuai UU Pelindungan Data Pribadi. Kartu jamaah tidak menampilkan NIK, paspor, maupun nomor telepon. Lupa data atau sandi? <a href="https://wa.me/6281213711159">Hubungi WhatsApp resmi 0812-1371-1159</a>.</p></div>';
-  var fj=$("#fj"),fm=$("#fm"),ft=$("#ft");
-  function tab(m){var k=m===true?"mitra":m==="tim"?"tim":"jamaah";fj.hidden=k!=="jamaah";fm.hidden=k!=="mitra";ft.hidden=k!=="tim";
-    $("#tj").setAttribute("aria-selected",k==="jamaah");$("#tm").setAttribute("aria-selected",k==="mitra");$("#tt").setAttribute("aria-selected",k==="tim");try{history.replaceState(null,"","#"+k)}catch(e){}}
-  $("#tj").onclick=function(){tab(false)};$("#tm").onclick=function(){tab(true)};$("#tt").onclick=function(){tab("tim")};
-  tab(location.hash==="#mitra"?true:location.hash==="#tim"?"tim":false);
-  if(pesan)(!fm.hidden?$("#em"):!ft.hidden?$("#et"):$("#ej")).textContent=pesan;
-  ft.onsubmit=function(e){e.preventDefault();var b=ft.querySelector("button");$("#et").textContent="";busy(b,true);
-    api({aksi:"loginTim",akun:$("#ta").value,sandi:$("#ts").value}).then(function(j){simpan(j);S.tim=j.tim;return tim()}).catch(function(er){$("#et").textContent=er.message;busy(b,false)})};
+  var fj=$("#fj"),fm=$("#fm");
+  function tab(m){var k=m===true?"mitra":"jamaah";fj.hidden=k!=="jamaah";fm.hidden=k!=="mitra";
+    $("#tj").setAttribute("aria-selected",k==="jamaah");$("#tm").setAttribute("aria-selected",k==="mitra");try{history.replaceState(null,"","#"+k)}catch(e){}}
+  $("#tj").onclick=function(){tab(false)};$("#tm").onclick=function(){tab(true)};
+  tab(location.hash==="#mitra"?true:false);
+  if(pesan)(!fm.hidden?$("#em"):$("#ej")).textContent=pesan;
   $("#mt").onchange=function(){$("#ms").type=this.checked?"text":"password"};
   fj.onsubmit=function(e){e.preventDefault();var b=fj.querySelector("button");$("#ej").textContent="";busy(b,true);
     api({aksi:"loginJamaah",nama:$("#jn").value,tglLahir:$("#jt").value}).then(function(j){simpan(j);return api({aksi:"kartu"})}).then(kartu)
