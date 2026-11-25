@@ -140,14 +140,18 @@ function beranda(){
   loading("beranda");
   return api({aksi:"beranda"}).then(function(j){var k=j.kartu;S.mitra=k;
     var peringatan=k.berlakuHabis?'<p class="px-warn">Masa berlaku kemitraan Anda telah lewat ('+tgl(k.berlaku)+'). Hubungi Farfaza untuk perpanjangan.</p>':'';
-    var h='<div class="px-card px-mitra"><div class="px-ch"><img src="img/logo_farfaza.png" alt="Farfaza" width="120" height="52"><span>KARTU '+esc((k.jenis||"MITRA").toUpperCase())+'</span></div>'
-     +'<div class="px-cn"><small>Kode</small><b>'+esc(k.kode)+'</b></div><div class="px-nm">'+esc(k.nama)+'</div><div class="px-cr"><div><small>Status</small><b>'+esc(k.status)+'</b></div>'
-     +(k.wilayah?'<div><small>Wilayah</small><b>'+esc(k.wilayah)+'</b></div>':'')+(k.berlaku?'<div><small>Berlaku sampai</small><b>'+tgl(k.berlaku)+'</b></div>':'')+'</div><div class="px-gold"></div></div>'+peringatan;
+    var h='<div class="px-km"><div id="kmf"></div><div id="kmb"></div></div><p class="px-kb"><button class="btn small" id="kmd1">Unduh depan</button> <button class="btn small" id="kmd2">Unduh belakang</button> <button class="btn ghost small" id="kmp">Cetak kartu</button></p>'+peringatan;
     if(j.beku)h+='<p class="px-warn">Status mitra Tidak Aktif: riwayat jamaah, harga, dan brosur dibekukan. Hubungi WhatsApp resmi 0812-1371-1159 untuk aktivasi ulang.</p>';
     else{var r=j.rekap;h+='<div class="px-stats"><div><b>'+r.jamaahTercatat+'</b><span>Jamaah tercatat</span></div><div><b>'+r.akanBerangkat+'</b><span>Akan berangkat</span></div></div>';
       var ks=Object.keys(r.umrohPerTanggal||{}).sort().reverse().slice(0,8);
       if(ks.length)h+='<h3>Keberangkatan umrah terbaru</h3><ul class="px-rw">'+ks.map(function(d){return '<li><b>'+tgl(d)+'</b><span>'+r.umrohPerTanggal[d]+' jamaah</span></li>'}).join("")+'</ul>'}
-    kerangka("beranda",h)}).catch(function(er){galat("beranda",er)});
+    kerangka("beranda",h);
+    var gb={};function ambil(sisi){return gb[sisi]||(gb[sisi]=kartuMitraGambar(k,sisi))}
+    ["depan","belakang"].forEach(function(sisi){ambil(sisi).then(function(c){var d=document.createElement("canvas");d.width=c.width;d.height=c.height;d.getContext("2d").drawImage(c,0,0);d.className="px-kmimg";d.setAttribute("role","img");d.setAttribute("aria-label","Kartu mitra "+sisi);var el=$(sisi==="depan"?"#kmf":"#kmb");if(el)el.appendChild(d)})});
+    function unduh(sisi){ambil(sisi).then(function(c){var a=document.createElement("a");a.download="kartu-mitra-"+String(k.kode||"farfaza")+"-"+sisi+".png";a.href=c.toDataURL("image/png");a.click()})}
+    $("#kmd1").onclick=function(){unduh("depan")};$("#kmd2").onclick=function(){unduh("belakang")};
+    $("#kmp").onclick=function(){var w=window.open("","_blank");if(!w){alert("Izinkan pop-up untuk mencetak.");return}Promise.all([ambil("depan"),ambil("belakang")]).then(function(cs){w.document.write('<title>Kartu Mitra Farfaza</title><style>@page{size:A4;margin:12mm}html,body{margin:0}.r{display:flex;gap:8mm}img{width:85.6mm;height:auto;display:block;border-radius:3mm}p{font:12px Arial;color:#555}</style><div class="r"><img src="'+cs[0].toDataURL("image/png")+'"><img src="'+cs[1].toDataURL("image/png")+'"></div><p>Gunting mengikuti tepi gambar. Laminasi bila perlu.</p>');w.document.close();w.onload=function(){w.print()}})};
+    }).catch(function(er){galat("beranda",er)});
 }
 function jamaah(){
   kerangka("jamaah",'<form id="fc" class="px-search"><input id="cq" placeholder="Cari nama atau nomor anggota (min. 3 huruf)" required minlength="3"><button class="btn small">Cari</button></form><p class="px-hint">Demi pelindungan data, NIK, paspor, dan nomor telepon jamaah tidak ditampilkan.</p><div id="hs"></div>');
@@ -273,6 +277,54 @@ function waShow(v){var d=wa62(v);if(d.indexOf("62")!==0)return v;var n="0"+d.sli
 function bungkus(ctx,t,maxW){var w=String(t).split(" "),l="",o=[];w.forEach(function(x){var n=l?l+" "+x:x;if(ctx.measureText(n).width>maxW&&l){o.push(l);l=x}else l=n});if(l)o.push(l);return o}
 function muat(src){return new Promise(function(r){var i=new Image();i.onload=function(){r(i)};i.onerror=function(){r(null)};i.src=src})}
 function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+
+// ---- kartu mitra (depan/belakang), desain dari canvas "Kartu Mitra Farfaza"
+function kartuMitraGambar(k,sisi){
+  return Promise.all([document.fonts.load("700 30px 'EB Garamond'"),document.fonts.load("600 20px 'DM Sans'"),muat("img/logo_farfaza.png")]).then(function(a){
+    var S=2,W=540,H=856,c=document.createElement("canvas");c.width=W*S;c.height=H*S;var x=c.getContext("2d");x.scale(S,S);
+    var SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",logo=a[2],UNGU="#8E0A80",GELAP="#5E0755",EMAS="#E8C766",TINTA="#2A1029",ABU="#5C4A5A";
+    function t(s,px,py,f,col,al,ls){x.font=f;x.fillStyle=col;x.textAlign=al||"left";if("letterSpacing" in x)x.letterSpacing=(ls||0)+"px";x.fillText(s,px,py);if("letterSpacing" in x)x.letterSpacing="0px"}
+    function bungkus(s,maxW,f){x.font=f;var w=String(s).split(/\s+/),l=[],cur="";w.forEach(function(k2){var tc=cur?cur+" "+k2:k2;if(x.measureText(tc).width>maxW&&cur){l.push(cur);cur=k2}else cur=tc});if(cur)l.push(cur);return l}
+    function para(s,px,py,maxW,f,col,lh){var L=bungkus(s,maxW,f);L.forEach(function(q,i){t(q,px,py+i*lh,f,col)});return py+L.length*lh}
+    function logoBox(cx,y,bw,bh){var bg="#fff";try{if(logo){var tc=document.createElement("canvas");tc.width=tc.height=4;var tx=tc.getContext("2d");tx.drawImage(logo,0,0,4,4);var px=tx.getImageData(0,0,1,1).data;if(px[3]>200)bg="rgb("+px[0]+","+px[1]+","+px[2]+")"}}catch(e){}x.fillStyle=bg;rr(x,cx-bw/2,y,bw,bh,12);x.fill();if(logo){var lh=bh-14,lw=logo.width*lh/logo.height;if(lw>bw-24){lw=bw-24;lh=logo.height*lw/logo.width}x.drawImage(logo,cx-lw/2,y+(bh-lh)/2,lw,lh)}}
+    x.fillStyle="#fff";x.fillRect(0,0,W,H);
+    var ref=/referensi/i.test(k.jenis||"");
+    if(sisi==="belakang"){
+      x.fillStyle=UNGU;x.fillRect(0,0,W,96);logoBox(W/2,16,230,64);x.fillStyle=GELAP;x.fillRect(0,96,W,12);
+      x.fillStyle="#FBF5FA";rr(x,40,138,460,ref?236:206,14);x.fill();x.lineWidth=3;x.strokeStyle=UNGU;x.stroke();
+      t("PERHATIAN",60,172,"700 20px "+SANS,UNGU,"left",1);
+      var y=para("Pembayaran sah apabila telah diterima PT. Farah Faza Astatama di rekening resmi di bawah ini. Pastikan Anda menerima bukti penerimaan dari Farfaza dan Nomor Anggota dengan tanggal keberangkatan; cek melalui tautan di website farfazatravel.com.",60,202,420,"500 16px "+SANS,TINTA,22);
+      if(ref)para("Mitra Referensi tidak berwenang menerima pembayaran jamaah dalam bentuk apa pun.",60,y+6,420,"500 14px "+SANS,ABU,20);
+      var by=ref?412:382;
+      t("REKENING RESMI",40,by,"700 13px "+SANS,"#6B5568","left",2);
+      t("Bank Mandiri KCP Jakarta Kramat (IDR)",40,by+28,"500 15px "+SANS,ABU);t("123-00-3000-000-6",40,by+56,"700 24px "+SANS,TINTA,"left",1);
+      t("Bank Syariah Indonesia (USD)",40,by+90,"500 15px "+SANS,ABU);t("700134228",40,by+118,"700 24px "+SANS,TINTA,"left",1);
+      t("a.n. PT. Farah Faza Astatama",40,by+148,"700 16px "+SANS,TINTA);
+      x.fillStyle="#E2D3E0";x.fillRect(40,by+170,460,1);
+      t("CEK MITRA, NOMOR ANGGOTA & PEMBAYARAN",40,by+198,"700 13px "+SANS,"#6B5568","left",1.5);
+      t("WhatsApp  0812-1371-1159",40,by+226,"600 18px "+SANS,TINTA);t("Web  farfazatravel.com",40,by+252,"600 18px "+SANS,TINTA);
+      para("Jl. Kramat II No. 59, Kwitang, Senen, Jakarta Pusat",40,by+278,460,"500 15px "+SANS,ABU,20);
+      para("Kartu ini milik PT. Farah Faza Astatama. Bila ditemukan, mohon hubungi nomor di atas. Kartu tidak berlaku apabila status mitra tidak aktif atau dicabut.",40,H-110,270,"500 12.5px "+SANS,ABU,17);
+      x.fillStyle=TINTA;x.fillRect(330,H-88,170,1.5);t("Direktur Operasional",415,H-68,"600 13px "+SANS,TINTA,"center");
+      x.fillStyle=UNGU;x.fillRect(0,H-18,W,18);x.fillStyle=EMAS;x.fillRect(0,H-21,W,3);
+      return c}
+    // depan
+    x.fillStyle=UNGU;x.fillRect(0,0,W,210);logoBox(W/2,30,270,88);x.fillStyle=GELAP;x.fillRect(0,210,W,28);
+    x.fillStyle=EMAS;x.fillRect(100,168,34,2);x.fillRect(W-134,168,34,2);t("KARTU MITRA",W/2+3,176,"700 20px "+SANS,"#fff","center",6);
+    var cy=300;
+    if(k.wilayah){t(String(k.wilayah),W/2,cy,"500 17px "+SANS,ABU,"center");cy+=14}
+    var nm=String(k.nama||"").toUpperCase(),fs=34,L;do{L=bungkus(nm,W-80,"700 "+fs+"px "+SERIF);fs-=2}while(L.length>2&&fs>20);fs+=2;
+    L=bungkus(nm,W-80,"700 "+fs+"px "+SERIF);cy+=38;L.forEach(function(q,i){t(q,W/2,cy+i*(fs+8),"700 "+fs+"px "+SERIF,TINTA,"center")});cy+=(L.length-1)*(fs+8);
+    var lab=(/mitra/i.test(k.jenis||"")?k.jenis:"Mitra "+(k.jenis||"")).toUpperCase().trim();x.font="700 17px "+SANS;if("letterSpacing" in x)x.letterSpacing="2px";var pw=x.measureText(lab).width+44;if("letterSpacing" in x)x.letterSpacing="0px";
+    cy+=34;x.fillStyle=ref?UNGU:EMAS;rr(x,W/2-pw/2,cy,pw,38,19);x.fill();t(lab,W/2+1,cy+26,"700 17px "+SANS,ref?"#fff":"#3B0A36","center",2);
+    cy+=96;x.fillStyle="#E2D3E0";x.fillRect(40,cy-34,460,1);
+    t("KODE MITRA",W/2,cy,"600 13px "+SANS,"#6B5568","center",2);t(String(k.kode||""),W/2,cy+54,"700 52px "+SANS,UNGU,"center",1);
+    var ada=!!k.berlaku;
+    t("STATUS",ada?150:W/2,cy+104,"600 13px "+SANS,"#6B5568","center",2);t(String(k.status||""),ada?150:W/2,cy+132,"700 22px "+SANS,TINTA,"center");
+    if(ada){t("BERLAKU SAMPAI",W-150,cy+104,"600 13px "+SANS,"#6B5568","center",2);t(tgl(k.berlaku),W-150,cy+132,"700 22px "+SANS,k.berlakuHabis?"#B3261E":TINTA,"center")}
+    x.fillStyle="#F6EEF5";x.fillRect(0,H-64,W,64);x.fillStyle=EMAS;x.fillRect(0,H-64,W,3);
+    t("PT. Farah Faza Astatama",W/2,H-36,"700 14px "+SANS,"#4A3247","center");t("Izin PPIU No. U.139/2020  ·  Izin PIHK No. 772/2019",W/2,H-16,"500 12.5px "+SANS,"#4A3247","center");
+    return c})}
 function cover(c,im,x,y,w,h){if(!im){c.fillStyle="#3A1A47";c.fillRect(x,y,w,h);return}var s=Math.max(w/im.width,h/im.height),sw=w/s,sh=h/s;c.drawImage(im,(im.width-sw)/2,(im.height-sh)/2*0.7,sw,sh,x,y,w,h)}
 var LGC=null;
 function clearBg(im){if(LGC&&LGC.src===im.src)return LGC.c;var t=document.createElement("canvas");t.width=im.width;t.height=im.height;var q=t.getContext("2d");q.drawImage(im,0,0);var dt=q.getImageData(0,0,t.width,t.height),p=dt.data;for(var i=0;i<p.length;i+=4){var m=Math.min(p[i],p[i+1],p[i+2]);if(m>232)p[i+3]=0;else if(m>200)p[i+3]=Math.round((232-m)/32*255)}q.putImageData(dt,0,0);LGC={src:im.src,c:t};return t}
