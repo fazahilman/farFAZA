@@ -51,15 +51,32 @@ function masuk(pesan){
 }
 
 // ---------- KARTU JAMAAH
+function kartuGambar(k){
+  return Promise.all([document.fonts.load("600 40px 'EB Garamond'"),document.fonts.load("600 30px 'DM Sans'"),muat("img/logo_farfaza.png")]).then(function(a){
+    var W=1011,H=638,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d"),SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",logo=a[2];
+    function t(s,px,py,f,col,al){x.font=f;x.fillStyle=col;x.textAlign=al||"left";x.fillText(s,px,py)}
+    var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#4B1670");g.addColorStop(1,"#24112F");x.fillStyle=g;x.fillRect(0,0,W,H);
+    x.fillStyle="rgba(226,190,106,.12)";x.beginPath();x.arc(W-60,40,260,0,7);x.fill();x.beginPath();x.arc(60,H+40,200,0,7);x.fill();
+    x.fillStyle="#fff";rr(x,36,30,190,84,14);x.fill();if(logo){var lh=70,lw=logo.width*lh/logo.height;x.drawImage(logo,46,37,lw,lh)}
+    t("KARTU JAMAAH",W-44,72,"600 26px "+SANS,"#E2BE6A","right");t("Gerbang Menuju Baitullah",W-44,104,"italic 600 24px "+SERIF,"#D9C6E2","right");
+    t("NOMOR ANGGOTA",44,205,"600 20px "+SANS,"#D9C6E2");t(String(k.nomorAnggota||""),44,262,"600 54px "+SANS,"#E2BE6A");
+    var nm=String(k.nama||"").toUpperCase(),fs=50;x.font="600 "+fs+"px "+SERIF;while(x.measureText(nm).width>W-88&&fs>26){fs-=2;x.font="600 "+fs+"px "+SERIF}t(nm,44,358,"600 "+fs+"px "+SERIF,"#fff");
+    x.fillStyle="#E2BE6A";x.fillRect(44,384,160,5);
+    t("PERJALANAN",44,448,"600 20px "+SANS,"#D9C6E2");t("Berangkat ke-"+(k.berangkat||0),44,500,"600 44px "+SERIF,"#fff");
+    if(k.tier){var tw=0;x.font="600 30px "+SANS;tw=x.measureText(String(k.tier)).width+56;t("TINGKAT",W-44,448,"600 20px "+SANS,"#D9C6E2","right");rr(x,W-44-tw,462,tw,56,28);x.fillStyle="#E2BE6A";x.fill();t(String(k.tier),W-44-tw/2,500,"600 30px "+SANS,"#24112F","center")}
+    x.fillStyle="rgba(255,255,255,.12)";x.fillRect(0,H-74,W,74);t("farfazatravel.com  ·  @farfazatravel  ·  WA 0812-1371-1159",W/2,H-30,"500 22px "+SANS,"#fff","center");
+    return c})}
 function kartu(j){
   var k=j.kartu,r=k.riwayat||[];
   root.innerHTML='<div class="px-wrapc"><div class="px-card"><div class="px-ch"><img src="img/logo_farfaza.png" alt="Farfaza" width="120" height="52"><span>KARTU JAMAAH</span></div>'
   +'<div class="px-cn"><small>Nomor Anggota</small><b>'+esc(k.nomorAnggota)+'</b></div><div class="px-nm">'+esc(k.nama)+'</div>'
   +'<div class="px-cr"><div><small>Perjalanan</small><b>Berangkat ke-'+esc(k.berangkat||0)+'</b></div>'+(k.tier?'<div><small>Tingkat</small><b class="px-tier">'+esc(k.tier)+'</b></div>':'')+'</div>'
   +(k.benefit?'<p class="px-ben">'+esc(k.benefit)+'</p>':'')+'<div class="px-gold"></div></div>'
-  +'<h3>Riwayat keberangkatan</h3>'+(r.length?'<ul class="px-rw">'+r.map(function(x){return '<li><b>'+tgl(x.tanggal)+'</b><span>'+esc([x.jenis,x.program].filter(Boolean).join(" · ")||"Perjalanan")+'</span><em class="px-st '+(x.status==="Berangkat"?"ok":"")+'">'+esc(x.status)+'</em></li>'}).join("")+'</ul>':'<p>Belum ada riwayat keberangkatan tercatat.</p>')
+  +'<p class="px-kb"><button class="btn small" id="kd">Unduh gambar kartu</button> <button class="btn ghost small" id="kp">Cetak kartu</button></p><h3>Riwayat keberangkatan</h3>'+(r.length?'<ul class="px-rw">'+r.map(function(x){return '<li><b>'+tgl(x.tanggal)+'</b><span>'+esc([x.jenis,x.program].filter(Boolean).join(" · ")||"Perjalanan")+'</span><em class="px-st '+(x.status==="Berangkat"?"ok":"")+'">'+esc(x.status)+'</em></li>'}).join("")+'</ul>':'<p>Belum ada riwayat keberangkatan tercatat.</p>')
   +'<p class="px-fine">Jika ada data yang tidak sesuai, hubungi <a href="https://wa.me/6281213711159">WhatsApp resmi 0812-1371-1159</a>.</p><p><button class="btn ghost small" id="kl">Keluar</button></p></div>';
   $("#kl").onclick=function(){keluar()};
+  $("#kd").onclick=function(){kartuGambar(k).then(function(c){var a=document.createElement("a");a.download="kartu-jamaah-"+String(k.nomorAnggota||"farfaza")+".png";a.href=c.toDataURL("image/png");a.click()})};
+  $("#kp").onclick=function(){var w=window.open("","_blank");if(!w){alert("Izinkan pop-up untuk mencetak.");return}kartuGambar(k).then(function(c){w.document.write('<title>Kartu Jamaah Farfaza</title><style>@page{size:A4;margin:12mm}html,body{margin:0}img{width:85.6mm;height:54mm;display:block;border-radius:3mm}p{font:12px Arial;color:#555}</style><img src="'+c.toDataURL("image/png")+'"><p>Ukuran kartu standar (85,6 x 54 mm). Gunting mengikuti tepi gambar.</p>');w.document.close();w.onload=function(){w.print()}})};
 }
 
 // ---------- WAJIB GANTI SANDI

@@ -196,3 +196,5 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .px textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:400 15px/1.4 'DM Sans',sans-serif;color:var(--plum);resize:vertical}
 .px-bf{margin:0}.px-bro{grid-template-columns:minmax(300px,420px) 1fr}.px-prev{position:sticky;top:96px}
 @media(max-width:760px){.px-prev{position:static}.px-two{grid-template-columns:1fr 1fr}}
+
+.px-kb{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 1.5rem}
