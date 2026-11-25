@@ -367,3 +367,13 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .mt-wa{display:inline-block;padding:6px 14px;border-radius:999px;background:#1faa59;color:#fff;font-size:.82rem;font-weight:600;text-decoration:none;white-space:nowrap}.mt-wa:hover{background:#178a47}.mt td:last-child{width:14%}
 
 .mt-h{scroll-margin-top:90px}
+
+/* testimoni */
+.tst-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 26px}.tst-score{font:600 2.6rem 'EB Garamond',serif;color:var(--plum);line-height:1}.tst-n{color:#5a4668;font-size:.95rem}
+.tst-st{display:inline-flex;gap:2px}.tst-st svg{width:18px;height:18px;fill:#E0A92E}
+.tst-g{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tst-c{margin:0;background:#fff;border:1px solid #E7DCEB;border-radius:18px;padding:22px;box-shadow:0 10px 26px rgba(36,17,47,.07);display:flex;flex-direction:column;gap:12px}
+.tst-c blockquote{margin:0;line-height:1.65;color:#3a2a47;font-size:.97rem;flex:1}
+.tst-c figcaption{font-weight:600;color:var(--plum);font-size:.92rem;display:flex;flex-direction:column}.tst-c figcaption small{font-weight:400;color:#8a7a94;font-size:.78rem}
+.tst-l{margin:26px 0 0}
+@media(max-width:900px){.tst-g{grid-template-columns:1fr}}
