@@ -140,7 +140,8 @@ function beranda(){
   loading("beranda");
   return api({aksi:"beranda"}).then(function(j){var k=j.kartu;S.mitra=k;
     var peringatan=k.berlakuHabis?'<p class="px-warn">Masa berlaku kemitraan Anda telah lewat ('+tgl(k.berlaku)+'). Hubungi Farfaza untuk perpanjangan.</p>':'';
-    var h='<div class="px-km"><div id="kmf"></div><div id="kmb"></div></div><p class="px-kb"><button class="btn small" id="kmd1">Unduh depan</button> <button class="btn small" id="kmd2">Unduh belakang</button> <button class="btn ghost small" id="kmp">Cetak kartu</button></p>'+peringatan;
+    var h='<h3>Kartu mitra</h3><div class="px-km"><div id="kmf"></div><div id="kmb"></div></div><p class="px-kb"><button class="btn small" id="kmd1">Unduh depan</button> <button class="btn small" id="kmd2">Unduh belakang</button> <button class="btn ghost small" id="kmp">Cetak kartu</button></p>'
+     +(j.kartuJamaah?'<h3>Kartu jamaah</h3><div class="px-km"><div id="kjg" class="px-kj"></div></div><p class="px-kb"><button class="btn small" id="kjd">Unduh kartu jamaah</button> <button class="btn ghost small" id="kjp">Cetak kartu jamaah</button></p>':'')+peringatan;
     if(j.beku)h+='<p class="px-warn">Status mitra Tidak Aktif: riwayat jamaah, harga, dan brosur dibekukan. Hubungi WhatsApp resmi 0812-1371-1159 untuk aktivasi ulang.</p>';
     else{var r=j.rekap;h+='<div class="px-stats"><div><b>'+r.jamaahTercatat+'</b><span>Jamaah tercatat</span></div><div><b>'+r.akanBerangkat+'</b><span>Akan berangkat</span></div></div>';
       var ks=Object.keys(r.umrohPerTanggal||{}).sort().reverse().slice(0,8);
@@ -148,6 +149,10 @@ function beranda(){
     kerangka("beranda",h);
     var gb={};function ambil(sisi){return gb[sisi]||(gb[sisi]=kartuMitraGambar(k,sisi))}
     ["depan","belakang"].forEach(function(sisi){ambil(sisi).then(function(c){var d=document.createElement("canvas");d.width=c.width;d.height=c.height;d.getContext("2d").drawImage(c,0,0);d.className="px-kmimg";d.setAttribute("role","img");d.setAttribute("aria-label","Kartu mitra "+sisi);var el=$(sisi==="depan"?"#kmf":"#kmb");if(el)el.appendChild(d)})});
+    if(j.kartuJamaah){var kj=j.kartuJamaah,pj=kartuGambar(kj);
+      pj.then(function(c){var d=document.createElement("canvas");d.width=c.width;d.height=c.height;d.getContext("2d").drawImage(c,0,0);d.className="px-kmimg";d.setAttribute("role","img");d.setAttribute("aria-label","Kartu jamaah");var el=$("#kjg");if(el)el.appendChild(d)});
+      $("#kjd").onclick=function(){pj.then(function(c){var a=document.createElement("a");a.download="kartu-jamaah-"+String(kj.nomorAnggota||"farfaza")+".png";a.href=c.toDataURL("image/png");a.click()})};
+      $("#kjp").onclick=function(){var w=window.open("","_blank");if(!w){alert("Izinkan pop-up untuk mencetak.");return}pj.then(function(c){w.document.write('<title>Kartu Jamaah Farfaza</title><style>@page{size:A4;margin:12mm}html,body{margin:0}img{width:85.6mm;height:54mm;display:block;border-radius:3mm}p{font:12px Arial;color:#555}</style><img src="'+c.toDataURL("image/png")+'"><p>Ukuran kartu standar (85,6 x 54 mm). Gunting mengikuti tepi gambar.</p>');w.document.close();w.onload=function(){w.print()}})}}
     function unduh(sisi){ambil(sisi).then(function(c){var a=document.createElement("a");a.download="kartu-mitra-"+String(k.kode||"farfaza")+"-"+sisi+".png";a.href=c.toDataURL("image/png");a.click()})}
     $("#kmd1").onclick=function(){unduh("depan")};$("#kmd2").onclick=function(){unduh("belakang")};
     $("#kmp").onclick=function(){var w=window.open("","_blank");if(!w){alert("Izinkan pop-up untuk mencetak.");return}Promise.all([ambil("depan"),ambil("belakang")]).then(function(cs){w.document.write('<title>Kartu Mitra Farfaza</title><style>@page{size:A4;margin:12mm}html,body{margin:0}.r{display:flex;gap:8mm}img{width:85.6mm;height:auto;display:block;border-radius:3mm}p{font:12px Arial;color:#555}</style><div class="r"><img src="'+cs[0].toDataURL("image/png")+'"><img src="'+cs[1].toDataURL("image/png")+'"></div><p>Gunting mengikuti tepi gambar. Laminasi bila perlu.</p>');w.document.close();w.onload=function(){w.print()}})};
