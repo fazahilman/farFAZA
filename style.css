@@ -256,3 +256,9 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .hsplit{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 .hsplit .dgrid.hone,.hsplit .hcard{max-width:none;margin:0}
 @media(max-width:820px){.hsplit{grid-template-columns:1fr;gap:24px}}
+
+/* wisata: 10 kartu, baris selalu penuh (5+5 / 2x5 / 1) */
+.wgrid{grid-template-columns:repeat(5,1fr);gap:16px}
+.wgrid .ncard h3{font-size:1rem;margin:6px 0 4px}.wgrid .ncard div{padding:12px 14px 14px}.wgrid .ncard small{font-size:.82rem;line-height:1.4;display:block}
+@media(max-width:1100px){.wgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.wgrid{grid-template-columns:1fr}}
