@@ -17,5 +17,7 @@ fetch("jadwal.json?v="+Math.floor(Date.now()/3600000)).then(function(r){return r
       ket=d>1?d+" hari lagi":d===1?"Besok":d===0?"Hari ini":"Hari ke-"+(1-d)+" perjalanan";
   el.querySelector("#kb-st").textContent=st;el.querySelector("#kb-kode").textContent=a.kode||"";
   el.querySelector("#kb-i").innerHTML='<b>'+esc(tgl(a.tanggal))+'</b>'+(a.maskapai?' · '+esc(a.maskapai):'')+' · <span class="kb-ket">'+esc(ket)+'</span>';
+  var mm=String(a.tanggal).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  el.querySelector("#kb-d").innerHTML='<span class="kb-dn">'+(+mm[3])+'</span><span class="kb-dm">'+BLN[+mm[2]-1]+' '+mm[1]+'<small>'+(a.maskapai?esc(a.maskapai)+' · ':'')+esc(ket)+'</small></span>';
   el.querySelector("#kb-g").innerHTML=kartu("Tour Leader",a.tl)+kartu("Mutawif",a.mutawif);
   el.hidden=false}).catch(function(){})})();

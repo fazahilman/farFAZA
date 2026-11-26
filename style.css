@@ -415,3 +415,17 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .kb-p0 b{color:#D9C6E2;font-weight:500}.kb-p0 .kb-av{border-style:dashed;opacity:.7}
 @media(max-width:640px){.kb-g{grid-template-columns:1fr}.kb-c{padding:16px}.kb-kode{margin-left:0}}
 .kb-h b{flex:1 1 55%;min-width:0}@media(max-width:640px){.kb-h b{flex-basis:calc(100% - 30px)}}
+
+/* banner keberangkatan: kotak di kanan hero (desktop) */
+.kb-d{display:none}
+@media(min-width:1180px){
+ .kb{height:0;margin-top:0;overflow:visible;z-index:4}.kb .wrap{position:relative;height:0}
+ .kb-c{position:absolute;right:0;bottom:56px;width:372px;padding:22px;border-radius:24px;border:1px solid rgba(226,190,106,.55);
+  background:linear-gradient(180deg,rgba(36,17,47,.42),rgba(36,17,47,.90) 70%),url(img/kb_bg.jpg) center/cover;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+ .kb-i{display:none}
+ .kb-d{display:flex;align-items:center;gap:14px;margin:14px 0 16px}
+ .kb-dn{font:600 4.2rem/1 'EB Garamond',serif;color:#fff}
+ .kb-dm{display:flex;flex-direction:column;font:600 1.15rem 'EB Garamond',serif;color:#fff}.kb-dm small{font:500 .9rem 'DM Sans',sans-serif;color:#E2BE6A;margin-top:2px}
+ .kb-g{grid-template-columns:1fr}
+ .kb-kode{margin-left:0;order:3}.kb-h{gap:8px}
+}
