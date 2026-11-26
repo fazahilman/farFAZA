@@ -40,9 +40,11 @@ function masuk(pesan){
   function tab(m){var k=m===true?"mitra":"jamaah";fj.hidden=k!=="jamaah";fm.hidden=k!=="mitra";
     $("#tj").setAttribute("aria-selected",k==="jamaah");$("#tm").setAttribute("aria-selected",k==="mitra");try{history.replaceState(null,"","#"+k)}catch(e){}}
   $("#tj").onclick=function(){tab(false)};$("#tm").onclick=function(){tab(true)};
+  var hs=location.hash.match(/^#(FFZ-\d+)/i);
   tab(location.hash==="#mitra"?true:false);
   if(pesan)(!fm.hidden?$("#em"):$("#ej")).textContent=pesan;
   $("#mt").onchange=function(){$("#ms").type=this.checked?"text":"password"};
+  if(hs&&$("#fj .px-hint"))$("#fj .px-hint").textContent="Kartu "+hs[1].toUpperCase()+": masukkan nama dan tanggal lahir sesuai paspor untuk melihat datanya.";
   fj.onsubmit=function(e){e.preventDefault();var b=fj.querySelector("button");$("#ej").textContent="";busy(b,true);
     api({aksi:"loginJamaah",nama:$("#jn").value,tglLahir:$("#jt").value}).then(function(j){simpan(j);return api({aksi:"kartu"})}).then(kartu)
     .catch(function(er){$("#ej").textContent=er.message;busy(b,false)})};
@@ -52,22 +54,39 @@ function masuk(pesan){
 }
 
 // ---------- KARTU JAMAAH
+function ringkasKartu(k){
+  var r=Array.isArray(k.riwayat)?k.riwayat:null,o={um:null,hj:null,tot:Number(k.berangkat)||0,last:"",sejak:""};
+  if(r&&r.length){var um=0,hj=0,ds=[];r.forEach(function(x){if(x.status==="Berangkat"){/haji/i.test((x.jenis||"")+" "+(x.program||""))?hj++:um++;if(x.tanggal)ds.push(String(x.tanggal))}});
+    ds.sort();o.um=um;o.hj=hj;o.tot=um+hj||o.tot;o.last=ds[ds.length-1]||"";o.sejak=ds[0]||""}
+  else if(k.umroh!=null||k.haji!=null){o.um=+k.umroh||0;o.hj=+k.haji||0;o.tot=o.um+o.hj||o.tot}
+  return o}
+function blnThn(s){var m=String(s||"").match(/^(\d{4})-(\d{2})/);return m?BLN[+m[2]-1]+" "+m[1]:""}
+function kartuQr(x,teks,px,py,sz){
+  if(typeof qrcode!=="function")return false;
+  var q=qrcode(0,"M");q.addData(teks);q.make();var n=q.getModuleCount(),c=sz/n;x.fillStyle="#24112F";
+  for(var r=0;r<n;r++)for(var d=0;d<n;d++)if(q.isDark(r,d))x.fillRect(Math.round(px+d*c),Math.round(py+r*c),Math.ceil(c),Math.ceil(c));
+  return true}
 function kartuGambar(k){
   return Promise.all([document.fonts.load("600 40px 'EB Garamond'"),document.fonts.load("600 30px 'DM Sans'"),muat("img/logo_farfaza.png")]).then(function(a){
-    var W=1011,H=638,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d"),SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",logo=a[2];
+    var W=1011,H=638,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d"),SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",logo=a[2],o=ringkasKartu(k);
     function t(s,px,py,f,col,al){x.font=f;x.fillStyle=col;x.textAlign=al||"left";x.fillText(s,px,py)}
     var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#4B1670");g.addColorStop(1,"#24112F");x.fillStyle=g;x.fillRect(0,0,W,H);
-    x.fillStyle="rgba(226,190,106,.12)";x.beginPath();x.arc(W-60,40,260,0,7);x.fill();x.beginPath();x.arc(60,H+40,200,0,7);x.fill();
+    x.fillStyle="rgba(226,190,106,.10)";x.beginPath();x.arc(W-60,40,260,0,7);x.fill();
+    x.strokeStyle="rgba(226,190,106,.45)";x.lineWidth=2;x.beginPath();x.arc(W-10,H+30,300,0,7);x.stroke();x.beginPath();x.arc(W-10,H+30,340,0,7);x.stroke();
     x.fillStyle="#fff";rr(x,36,30,190,84,14);x.fill();if(logo){var lh=70,lw=logo.width*lh/logo.height;x.drawImage(logo,46,37,lw,lh)}
     t("KARTU JAMAAH",W-44,72,"600 26px "+SANS,"#E2BE6A","right");t("Gerbang Menuju Baitullah",W-44,104,"italic 600 24px "+SERIF,"#D9C6E2","right");
-    t("NOMOR ANGGOTA",44,205,"600 20px "+SANS,"#D9C6E2");t(String(k.nomorAnggota||""),44,262,"600 54px "+SANS,"#E2BE6A");
-    var nm=String(k.nama||"").toUpperCase(),fs=50;x.font="600 "+fs+"px "+SERIF;while(x.measureText(nm).width>W-88&&fs>26){fs-=2;x.font="600 "+fs+"px "+SERIF}t(nm,44,358,"600 "+fs+"px "+SERIF,"#fff");
-    x.fillStyle="#E2BE6A";x.fillRect(44,384,160,5);
-    t("PERJALANAN",44,448,"600 20px "+SANS,"#D9C6E2");t("Berangkat ke-"+(k.berangkat||0),44,500,"600 44px "+SERIF,"#fff");
-    if(k.tier){var tw=0;x.font="600 30px "+SANS;tw=x.measureText(String(k.tier)).width+56;t("TINGKAT",W-44,448,"600 20px "+SANS,"#D9C6E2","right");rr(x,W-44-tw,462,tw,56,28);x.fillStyle="#E2BE6A";x.fill();t(String(k.tier),W-44-tw/2,500,"600 30px "+SANS,"#24112F","center")}
+    var nm=String(k.nama||"").toUpperCase(),fs=52;x.font="600 "+fs+"px "+SERIF;while(x.measureText(nm).width>W-88&&fs>26){fs-=2;x.font="600 "+fs+"px "+SERIF}t(nm,44,196,"600 "+fs+"px "+SERIF,"#fff");
+    t("ID  "+String(k.nomorAnggota||""),44,242,"500 26px "+SANS,"#E2BE6A");
+    var bx=[[0,o.tot,"TOTAL PERJALANAN"]];if(o.um!=null)bx=[[0,o.um,"UMROH"],[0,o.hj,"HAJI"],[0,o.tot,"TOTAL PERJALANAN"]];
+    bx.forEach(function(b,i){var w=bx.length===1?260:i===2?250:190,px=44+(bx.length===1?0:i===0?0:i===1?206:412);
+      x.fillStyle="rgba(255,255,255,.13)";rr(x,px,282,w,124,18);x.fill();t(String(b[1]),px+22,352,"600 60px "+SERIF,"#fff");t(b[2],px+22,388,"600 17px "+SANS,"#D9C6E2")});
+    if(o.last){t("Keberangkatan terakhir",44,462,"500 20px "+SANS,"#D9C6E2");t(tgl(o.last),44,504,"600 32px "+SANS,"#fff")}
+    if(o.sejak){t("Jamaah sejak",360,462,"500 20px "+SANS,"#D9C6E2");t(blnThn(o.sejak),360,504,"600 32px "+SANS,"#fff")}
+    var qs=186,qx=W-44-qs-24,qy=272;x.fillStyle="#fff";rr(x,qx,qy,qs+24,qs+24,18);x.fill();
+    var base=/^https?:/.test(location.origin)?location.origin:"https://farfaza.vercel.app";
+    if(kartuQr(x,base+"/cek.html#"+encodeURIComponent(String(k.nomorAnggota||"")),qx+12,qy+12,qs))t("Scan untuk cek data",qx+(qs+24)/2,qy+qs+24+30,"600 20px "+SANS,"#E2BE6A","center");
     x.fillStyle="rgba(255,255,255,.12)";x.fillRect(0,H-74,W,74);t("farfazatravel.com  ·  @farfazatravel  ·  WA 0812-1371-1159",W/2,H-30,"500 22px "+SANS,"#fff","center");
     return c})}
-
 function riwayatHtml(r){
   function haji(x){return /haji/i.test(String(x.jenis||"")+" "+String(x.program||""))}
   function akan(x){return x.status!=="Berangkat"&&!/batal|cancel/i.test(String(x.status||""))}
@@ -84,12 +103,11 @@ function riwayatHtml(r){
 }
 function kartu(j){
   var k=j.kartu,r=k.riwayat||[];
-  root.innerHTML='<div class="px-wrapc"><div class="px-card"><div class="px-ch"><img src="img/logo_farfaza.png" alt="Farfaza" width="120" height="52"><span>KARTU JAMAAH</span></div>'
-  +'<div class="px-cn"><small>Nomor Anggota</small><b>'+esc(k.nomorAnggota)+'</b></div><div class="px-nm">'+esc(k.nama)+'</div>'
-  +'<div class="px-cr"><div><small>Perjalanan</small><b>Berangkat ke-'+esc(k.berangkat||0)+'</b></div>'+(k.tier?'<div><small>Tingkat</small><b class="px-tier">'+esc(k.tier)+'</b></div>':'')+'</div>'
-  +(k.benefit?'<p class="px-ben">'+esc(k.benefit)+'</p>':'')+'<div class="px-gold"></div></div>'
+  root.innerHTML='<div class="px-wrapc"><div id="kjc" class="px-kjc"></div>'
+  +(k.benefit?'<p class="px-ben2">'+esc(k.benefit)+'</p>':'')
   +'<p class="px-kb"><button class="btn small" id="kd">Unduh gambar kartu</button> <button class="btn ghost small" id="kp">Cetak kartu</button></p>'+riwayatHtml(r)
   +'<p class="px-fine">Jika ada data yang tidak sesuai, hubungi <a href="https://wa.me/6281213711159">WhatsApp resmi 0812-1371-1159</a>.</p><p><button class="btn ghost small" id="kl">Keluar</button></p></div>';
+  kartuGambar(k).then(function(c){c.className="px-kmimg";c.setAttribute("role","img");c.setAttribute("aria-label","Kartu jamaah "+(k.nama||""));var el=$("#kjc");if(el)el.appendChild(c)});
   $("#kl").onclick=function(){keluar()};
   $("#kd").onclick=function(){kartuGambar(k).then(function(c){var a=document.createElement("a");a.download="kartu-jamaah-"+String(k.nomorAnggota||"farfaza")+".png";a.href=c.toDataURL("image/png");a.click()})};
   $("#kp").onclick=function(){var w=window.open("","_blank");if(!w){alert("Izinkan pop-up untuk mencetak.");return}kartuGambar(k).then(function(c){w.document.write('<title>Kartu Jamaah Farfaza</title><style>@page{size:A4;margin:12mm}html,body{margin:0}img{width:85.6mm;height:54mm;display:block;border-radius:3mm}p{font:12px Arial;color:#555}</style><img src="'+c.toDataURL("image/png")+'"><p>Ukuran kartu standar (85,6 x 54 mm). Gunting mengikuti tepi gambar.</p>');w.document.close();w.onload=function(){w.print()}})};
