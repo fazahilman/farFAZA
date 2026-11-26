@@ -67,13 +67,28 @@ function kartuGambar(k){
     if(k.tier){var tw=0;x.font="600 30px "+SANS;tw=x.measureText(String(k.tier)).width+56;t("TINGKAT",W-44,448,"600 20px "+SANS,"#D9C6E2","right");rr(x,W-44-tw,462,tw,56,28);x.fillStyle="#E2BE6A";x.fill();t(String(k.tier),W-44-tw/2,500,"600 30px "+SANS,"#24112F","center")}
     x.fillStyle="rgba(255,255,255,.12)";x.fillRect(0,H-74,W,74);t("farfazatravel.com  ·  @farfazatravel  ·  WA 0812-1371-1159",W/2,H-30,"500 22px "+SANS,"#fff","center");
     return c})}
+
+function riwayatHtml(r){
+  function haji(x){return /haji/i.test(String(x.jenis||"")+" "+String(x.program||""))}
+  function akan(x){return x.status!=="Berangkat"&&!/batal|cancel/i.test(String(x.status||""))}
+  function urut(a,b){return String(b.tanggal||"").localeCompare(String(a.tanggal||""))}
+  function blok(judul,it){
+    var h='<section class="px-jn"><h3>'+judul+' <small>'+(it.length?it.length+' keberangkatan':'')+'</small></h3>';
+    if(!it.length)return h+'<p class="px-fine">Belum ada keberangkatan '+judul.toLowerCase()+' tercatat.</p></section>';
+    it=it.slice().sort(urut);
+    var nx=it.filter(akan).sort(function(a,b){return -urut(a,b)})[0],last=it.filter(function(x){return !akan(x)})[0];
+    h+='<div class="px-hl">'+(nx?'<div class="nx"><small>Akan berangkat</small><b>'+tgl(nx.tanggal)+'</b><span>'+esc(nx.program||"")+'</span></div>':'')
+      +(last?'<div><small>Keberangkatan terakhir</small><b>'+tgl(last.tanggal)+'</b><span>'+esc(last.program||"")+'</span></div>':'')+'</div>';
+    return h+'<ul class="px-rw">'+it.map(function(x){return '<li><b>'+tgl(x.tanggal)+'</b><span>'+esc(x.program||"Perjalanan")+'</span><em class="px-st '+(x.status==="Berangkat"?"ok":"")+'">'+esc(x.status)+'</em></li>'}).join("")+'</ul></section>'}
+  return '<h3 class="px-rh">Riwayat keberangkatan</h3>'+blok("Umroh",r.filter(function(x){return !haji(x)}))+blok("Haji",r.filter(haji));
+}
 function kartu(j){
   var k=j.kartu,r=k.riwayat||[];
   root.innerHTML='<div class="px-wrapc"><div class="px-card"><div class="px-ch"><img src="img/logo_farfaza.png" alt="Farfaza" width="120" height="52"><span>KARTU JAMAAH</span></div>'
   +'<div class="px-cn"><small>Nomor Anggota</small><b>'+esc(k.nomorAnggota)+'</b></div><div class="px-nm">'+esc(k.nama)+'</div>'
   +'<div class="px-cr"><div><small>Perjalanan</small><b>Berangkat ke-'+esc(k.berangkat||0)+'</b></div>'+(k.tier?'<div><small>Tingkat</small><b class="px-tier">'+esc(k.tier)+'</b></div>':'')+'</div>'
   +(k.benefit?'<p class="px-ben">'+esc(k.benefit)+'</p>':'')+'<div class="px-gold"></div></div>'
-  +'<p class="px-kb"><button class="btn small" id="kd">Unduh gambar kartu</button> <button class="btn ghost small" id="kp">Cetak kartu</button></p><h3>Riwayat keberangkatan</h3>'+(r.length?'<ul class="px-rw">'+r.map(function(x){return '<li><b>'+tgl(x.tanggal)+'</b><span>'+esc([x.jenis,x.program].filter(Boolean).join(" · ")||"Perjalanan")+'</span><em class="px-st '+(x.status==="Berangkat"?"ok":"")+'">'+esc(x.status)+'</em></li>'}).join("")+'</ul>':'<p>Belum ada riwayat keberangkatan tercatat.</p>')
+  +'<p class="px-kb"><button class="btn small" id="kd">Unduh gambar kartu</button> <button class="btn ghost small" id="kp">Cetak kartu</button></p>'+riwayatHtml(r)
   +'<p class="px-fine">Jika ada data yang tidak sesuai, hubungi <a href="https://wa.me/6281213711159">WhatsApp resmi 0812-1371-1159</a>.</p><p><button class="btn ghost small" id="kl">Keluar</button></p></div>';
   $("#kl").onclick=function(){keluar()};
   $("#kd").onclick=function(){kartuGambar(k).then(function(c){var a=document.createElement("a");a.download="kartu-jamaah-"+String(k.nomorAnggota||"farfaza")+".png";a.href=c.toDataURL("image/png");a.click()})};
