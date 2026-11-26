@@ -442,3 +442,5 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .tm-ea{display:flex;flex:none}.tm-ea span{width:58px;height:58px;border-radius:50%;border:2px dashed #C9A9D4;background:#F7F0F9;margin-left:-14px}.tm-ea span:first-child{margin-left:0}
 .tm-e p{margin:0;color:#5a4668;line-height:1.6}.tm-e b{color:var(--plum)}
 @media(max-width:980px){.tm-g{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.tm-g{grid-template-columns:repeat(2,1fr)}.tm-e{flex-direction:column;text-align:center}}
+
+.kb-mk{height:24px;width:auto;vertical-align:middle;margin:0 4px;background:#fff;border-radius:5px;padding:3px 7px}
