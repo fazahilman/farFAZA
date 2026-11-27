@@ -323,7 +323,7 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 .mk-how li:before{content:counter(h);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:#7A2E78;color:#fff;font-size:.8rem;font-weight:600;display:grid;place-items:center}
 .mk-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}.mk-tabs button{border:1px solid #D9C6DF;background:#fff;color:#4A1E52;font:600 .88rem 'DM Sans',sans-serif;padding:10px 18px;border-radius:999px;cursor:pointer}.mk-tabs button.on{background:#7A2E78;border-color:#7A2E78;color:#fff}
 .mk-pn{display:none}.mk-pn.on{display:block}
-.mk-gift{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.mk-gift{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .mk-gift div{background:#fff;border:1px solid #E7DCEB;border-radius:16px;padding:16px 14px}.mk-gift b{display:block;font-family:'EB Garamond',serif;font-size:1.15rem;line-height:1.2;color:var(--plum);margin-bottom:6px}.mk-gift span{font-size:.8rem;line-height:1.4;color:#6b5a73}
 .mk-sm2{font-size:.88rem;color:#6b5a73;margin:16px 0 0;line-height:1.5}
 .mk-yn{display:grid;grid-template-columns:1fr 1fr;gap:18px}.mk-yn>div{border-radius:18px;padding:20px 22px}.mk-yn h4{font-family:'EB Garamond',serif;font-size:1.3rem;margin:0 0 10px}
