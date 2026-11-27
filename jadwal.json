@@ -9,7 +9,9 @@
    "domisili": "Indramayu",
    "foto": "img/mitra/bapak-imron.jpg"
   },
-  "mutawif": null,
+  "mutawif": {
+   "nama": "Ali Makhrus"
+  },
   "logo": "img/maskapai/saudia.png"
  }
 ]
