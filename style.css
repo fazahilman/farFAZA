@@ -447,3 +447,25 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 
 .mkb{display:flex;align-items:center;min-height:30px}.mkb img{height:26px;width:auto;max-width:100%;object-fit:contain}
 .mkb img[src*=garuda]{height:40px;margin:-4px 0}
+
+/* doa umroh */
+.dc-note{margin:6px 0 20px;padding:12px 16px;border-left:3px solid #E2BE6A;background:#FBF6E9;border-radius:0 10px 10px 0;color:#5a4668;font-size:.92rem;line-height:1.6}
+.dc-bar{position:sticky;top:64px;z-index:5;display:flex;align-items:center;gap:12px;justify-content:space-between;background:rgba(250,246,252,.94);backdrop-filter:blur(8px);padding:10px 0;margin:0 0 8px;border-bottom:1px solid #E7DCEB}
+.dc-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex:1}.dc-chips::-webkit-scrollbar{display:none}
+.dc-chips a{flex:none;font-size:.85rem;font-weight:600;color:#7A2E78;background:#F3EAF6;border-radius:999px;padding:7px 14px;text-decoration:none;white-space:nowrap}
+.dc-chips a:hover{background:#7A2E78;color:#fff}
+.dc-all{flex:none;font:600 .85rem 'DM Sans',sans-serif;color:#7A2E78;background:#fff;border:1.5px solid #7A2E78;border-radius:999px;padding:7px 14px;cursor:pointer}
+.dg{scroll-margin-top:140px;margin-top:30px}
+.dg-h{margin:0;font:600 1.6rem 'EB Garamond',serif;color:var(--plum)}.dg-s{margin:2px 0 12px;color:#5a4668;font-size:.92rem}
+.dc{background:#fff;border:1px solid #E7DCEB;border-radius:14px;margin-bottom:10px;box-shadow:0 6px 18px rgba(36,17,47,.05);overflow:hidden}
+.dc summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;font-weight:600;color:var(--plum)}
+.dc summary::-webkit-details-marker{display:none}
+.dc summary::after{content:"";margin-left:auto;width:9px;height:9px;border-right:2px solid #7A2E78;border-bottom:2px solid #7A2E78;transform:rotate(45deg);transition:transform .2s;flex:none}
+.dc[open] summary::after{transform:rotate(-135deg)}
+.dc-n{flex:none;width:28px;height:28px;border-radius:50%;background:#7A2E78;color:#fff;font-size:.78rem;display:grid;place-items:center}
+.dc-b{padding:2px 18px 18px;border-top:1px dashed #E7DCEB}
+.dc-k{margin:12px 0 4px;font-size:.84rem;color:#7A6488}
+.dc-ar{margin:10px 0 12px;font:400 1.75rem/2.4 'Amiri','Noto Naskh Arabic','Scheherazade New','Traditional Arabic',serif;color:#24112F;text-align:right}
+.dc-la{margin:0 0 10px;font-style:italic;color:#4a3a58;line-height:1.7;font-size:.95rem}
+.dc-ti{margin:0;color:#24112F;line-height:1.7;font-size:.95rem}.dc-ti b{color:#7A2E78;margin-right:6px}
+@media(max-width:600px){.dc-ar{font-size:1.5rem}.dc-bar{top:56px}.dc-all{display:none}}
