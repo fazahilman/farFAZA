@@ -67,13 +67,13 @@ function kartuQr(x,teks,px,py,sz){
   for(var r=0;r<n;r++)for(var d=0;d<n;d++)if(q.isDark(r,d))x.fillRect(Math.round(px+d*c),Math.round(py+r*c),Math.ceil(c),Math.ceil(c));
   return true}
 function kartuGambar(k){
-  return Promise.all([document.fonts.load("600 40px 'EB Garamond'"),document.fonts.load("600 30px 'DM Sans'"),muat("img/logo_farfaza.png")]).then(function(a){
+  return Promise.all([document.fonts.load("600 40px 'EB Garamond'"),document.fonts.load("600 30px 'DM Sans'"),muat("img/logo_farfaza_putih.png")]).then(function(a){
     var W=1011,H=638,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d"),SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",logo=a[2],o=ringkasKartu(k);
     function t(s,px,py,f,col,al){x.font=f;x.fillStyle=col;x.textAlign=al||"left";x.fillText(s,px,py)}
     var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#4B1670");g.addColorStop(1,"#24112F");x.fillStyle=g;x.fillRect(0,0,W,H);
     x.fillStyle="rgba(226,190,106,.10)";x.beginPath();x.arc(W-60,40,260,0,7);x.fill();
     x.strokeStyle="rgba(226,190,106,.45)";x.lineWidth=2;x.beginPath();x.arc(W-10,H+30,300,0,7);x.stroke();x.beginPath();x.arc(W-10,H+30,340,0,7);x.stroke();
-    x.fillStyle="#fff";rr(x,36,30,190,84,14);x.fill();if(logo){var lh=70,lw=logo.width*lh/logo.height;x.drawImage(logo,46,37,lw,lh)}
+    if(logo){var lh=76,lw=logo.width*lh/logo.height;x.drawImage(logo,44,30,lw,lh)}
     t("KARTU JAMAAH",W-44,72,"600 26px "+SANS,"#E2BE6A","right");t("Gerbang Menuju Baitullah",W-44,104,"italic 600 24px "+SERIF,"#D9C6E2","right");
     var nm=String(k.nama||"").toUpperCase(),fs=52;x.font="600 "+fs+"px "+SERIF;while(x.measureText(nm).width>W-88&&fs>26){fs-=2;x.font="600 "+fs+"px "+SERIF}t(nm,44,196,"600 "+fs+"px "+SERIF,"#fff");
     t("ID  "+String(k.nomorAnggota||""),44,242,"500 26px "+SANS,"#E2BE6A");
@@ -312,20 +312,20 @@ function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);
 
 // ---- kartu mitra (depan/belakang), desain dari canvas "Kartu Mitra Farfaza"
 function kartuMitraGambar(k,sisi){
-  return Promise.all([document.fonts.load("700 30px 'EB Garamond'"),document.fonts.load("600 20px 'DM Sans'"),muat("img/logo_farfaza.png"),k.foto?muat(k.foto):null]).then(function(a){
+  return Promise.all([document.fonts.load("700 30px 'EB Garamond'"),document.fonts.load("600 20px 'DM Sans'"),muat("img/logo_farfaza_putih.png"),k.foto?muat(k.foto):null]).then(function(a){
     var S=2,W=540,H=856,c=document.createElement("canvas");c.width=W*S;c.height=H*S;var x=c.getContext("2d");x.scale(S,S);
     var SERIF="'EB Garamond',Georgia,serif",SANS="'DM Sans',Arial,sans-serif",logo=a[2],UNGU="#8E0A80",GELAP="#5E0755",EMAS="#E8C766",TINTA="#2A1029",ABU="#5C4A5A";
     function t(s,px,py,f,col,al,ls){x.font=f;x.fillStyle=col;x.textAlign=al||"left";if("letterSpacing" in x)x.letterSpacing=(ls||0)+"px";x.fillText(s,px,py);if("letterSpacing" in x)x.letterSpacing="0px"}
     function bungkus(s,maxW,f){x.font=f;var w=String(s).split(/\s+/),l=[],cur="";w.forEach(function(k2){var tc=cur?cur+" "+k2:k2;if(x.measureText(tc).width>maxW&&cur){l.push(cur);cur=k2}else cur=tc});if(cur)l.push(cur);return l}
     function para(s,px,py,maxW,f,col,lh){var L=bungkus(s,maxW,f);L.forEach(function(q,i){t(q,px,py+i*lh,f,col)});return py+L.length*lh}
-    function logoBox(cx,y,bw,bh){var bg="#fff";try{if(logo){var tc=document.createElement("canvas");tc.width=tc.height=4;var tx=tc.getContext("2d");tx.drawImage(logo,0,0,4,4);var px=tx.getImageData(0,0,1,1).data;if(px[3]>200)bg="rgb("+px[0]+","+px[1]+","+px[2]+")"}}catch(e){}x.fillStyle=bg;rr(x,cx-bw/2,y,bw,bh,12);x.fill();if(logo){var lh=bh-14,lw=logo.width*lh/logo.height;if(lw>bw-24){lw=bw-24;lh=logo.height*lw/logo.width}x.drawImage(logo,cx-lw/2,y+(bh-lh)/2,lw,lh)}}
+    function logoBox(cx,y,bw,bh){if(!logo)return;var lh=bh-6,lw=logo.width*lh/logo.height;if(lw>bw){lw=bw;lh=logo.height*lw/logo.width}x.drawImage(logo,cx-lw/2,y+(bh-lh)/2,lw,lh)}
         x.fillStyle="#FAF6FB";x.fillRect(0,0,W,H);
     var ref=/referensi/i.test(k.jenis||""),FOTO=a[3];
     function glass(px,py,w,h,r,al){x.fillStyle="rgba(255,255,255,"+(al||.10)+")";rr(x,px,py,w,h,r);x.fill()}
     function kartuBg(){var g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#5A1A6E");g.addColorStop(1,"#24112F");x.fillStyle=g;x.fillRect(0,0,W,H)}
     if(sisi==="belakang"){
       var gh=x.createLinearGradient(0,0,W,110);gh.addColorStop(0,"#5A1A6E");gh.addColorStop(1,"#24112F");x.fillStyle=gh;x.fillRect(0,0,W,110);x.fillStyle=EMAS;x.fillRect(0,110,W,4);
-      logoBox(W/2,18,230,64);
+      logoBox(W/2,14,260,82);
       var f1="500 16px "+SANS,tx1="Pembayaran sah apabila telah diterima PT. Farah Faza Astatama di rekening resmi di bawah ini. Pastikan Anda menerima bukti penerimaan dari Farfaza dan Nomor Anggota dengan tanggal keberangkatan; cek melalui tautan di website farfazatravel.com.",tx2="Mitra Referensi tidak berwenang menerima pembayaran jamaah dalam bentuk apa pun.";
       var l1=bungkus(tx1,424,f1),l2=ref?bungkus(tx2,424,"500 14px "+SANS):[],ch=60+l1.length*22+(ref?14+l2.length*20:0)+14,cy0=136;
       x.save();x.shadowColor="rgba(60,0,70,.14)";x.shadowBlur=14;x.shadowOffsetY=4;x.fillStyle="#fff";rr(x,30,cy0,480,ch,16);x.fill();x.restore();
@@ -350,7 +350,7 @@ function kartuMitraGambar(k,sisi){
     kartuBg();
     x.strokeStyle="rgba(232,199,102,.20)";x.lineWidth=2;x.beginPath();x.arc(W+10,H-120,260,0,7);x.stroke();x.beginPath();x.arc(W+10,H-120,300,0,7);x.stroke();
     x.fillStyle="rgba(232,199,102,.08)";x.beginPath();x.arc(40,60,190,0,7);x.fill();
-    logoBox(W/2,30,250,80);
+    logoBox(W/2,22,300,98);
     x.fillStyle=EMAS;x.fillRect(96,152,40,2);x.fillRect(W-136,152,40,2);t("KARTU MITRA",W/2+3,159,"700 19px "+SANS,EMAS,"center",6);
     var ax=W/2,ay=262,ar=78;x.fillStyle=EMAS;x.beginPath();x.arc(ax,ay,ar+6,0,7);x.fill();
     x.save();x.beginPath();x.arc(ax,ay,ar,0,7);x.clip();
