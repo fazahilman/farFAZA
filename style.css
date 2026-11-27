@@ -474,3 +474,5 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 @media(max-width:380px){.flinks{gap:10px 14px}.flinks a{font-size:14px}}
 
 .mk-fig{margin:0 auto 22px;max-width:520px;text-align:center}.mk-fig a{display:block;border-radius:18px;overflow:hidden;border:1px solid #E7DCEB;box-shadow:0 10px 28px rgba(36,17,47,.10)}.mk-fig img{display:block;width:100%;height:auto}.mk-fig figcaption{margin-top:8px;font-size:.85rem;color:#6b5a73}
+
+.fdl{margin:14px 0 0}.fdl a{display:inline-block;color:#E2BE6A;text-decoration:none;font-weight:600;font-size:14px;border:1.5px solid rgba(226,190,106,.7);border-radius:999px;padding:8px 16px;transition:.15s}.fdl a:hover{background:#E2BE6A;color:#24112F}
