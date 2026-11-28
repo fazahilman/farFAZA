@@ -216,3 +216,22 @@ body.home .kb-p0 b{color:#6B5878}
 .s-run .hdt b{font-size:1.7rem}
 .home .s-cta .cta{padding-top:200px}
 @media(max-width:700px){.home .s-cta .cta{padding-top:130px}}
+
+/* ===== Tim: foto bulat, tanpa kotak ===== */
+.home .tm-c{background:none;border:0;box-shadow:none;border-radius:0;padding:12px 6px 18px;border-top:1px solid var(--line);border-radius:0}
+.home .tm-c small{text-transform:none;letter-spacing:0;background:none;padding:0;font-size:.85rem;font-weight:500;color:var(--pur);margin-top:2px}
+.home .tm-h{font-size:2rem;margin:44px 0 12px}
+.home .tm-av{width:104px;height:104px}
+
+/* ===== Wisata: kartu poster ===== */
+.home .wgrid .ncard{position:relative;display:block;aspect-ratio:3/4;border:0;border-radius:16px;background:var(--ink);overflow:hidden}
+.home .wgrid .ncard img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .5s var(--rise)}
+.home .wgrid .ncard:hover img{transform:scale(1.05)}
+.home .wgrid .ncard div{position:absolute;left:0;right:0;bottom:0;padding:70px 14px 14px;background:linear-gradient(180deg,transparent,rgba(36,17,47,.92))}
+.home .wgrid .ncard h3{color:#fff;font-size:1.25rem;margin:0 0 4px}
+.home .wgrid .ncard small{color:#E6D5EC;font-size:.8rem}
+.home .wgrid .ntag{display:none}
+.home .wgrid{gap:14px}
+
+/* ===== Tentang ===== */
+.home .chips{margin-top:22px}
