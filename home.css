@@ -235,3 +235,6 @@ body.home .kb-p0 b{color:#6B5878}
 
 /* ===== Tentang ===== */
 .home .chips{margin-top:22px}
+
+/* ===== Kontak dan halaman teks ===== */
+.home .crow small{text-transform:none;letter-spacing:0;font-size:.85rem}
