@@ -175,3 +175,44 @@ body.home .kb-p0 b{color:#6B5878}
  .legal2{flex-direction:column;align-items:flex-start}
  .s-cta .cta{border-radius:200px 200px 0 0;padding:120px 24px 56px}.s-cta .cta:before{border-radius:190px 190px 0 0}
 }
+
+/* ===== Halaman dalam (Umroh, Haji) ===== */
+.hero2.pg{padding:56px 0 72px}
+.pg .h2g{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr)}
+.pg .h2t h1{font-size:clamp(40px,5.4vw,76px);max-width:11em}
+.pg .h2a{max-width:350px}
+.pg .gate{aspect-ratio:4/4.7}
+.home .ctas{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Umroh: program berwarna tingkatan */
+.s-progs .progs{gap:18px;margin-top:32px}
+.home .progs .prog{display:flex;flex-direction:row;align-items:flex-start;border:1px solid var(--line);border-top:6px solid var(--ink);border-radius:14px;padding:22px 22px 18px;gap:16px;background:#fff}
+.home .progs .prog.c1{border-top-color:#8A4B1F}.home .progs .prog.c2{border-top-color:#5C5C66}.home .progs .prog.c3{border-top-color:#8A6A10}.home .progs .prog.c4{border-top-color:#1F55A6}
+.home .progs .prog h3{font-size:1.55rem}
+.home .progs .prog .pst{font:400 .8rem 'DM Sans',sans-serif;color:#B98B1A;margin-left:8px}
+.home .progs .prog .tag{font-size:14px;color:var(--pur)}
+.home .progs .prog p{font-size:15.5px}
+.s-figs .fig{border:0;background:none;border-radius:0}
+.s-figs .fig img{height:260px;border-radius:999px 999px 14px 14px}
+.s-figs .fig figcaption{padding:14px 4px 0;text-align:center}
+.s-modes .card{background:none;border:0;border-top:3px solid var(--gold);border-radius:0;padding:20px 0 0}
+.s-modes .card h3{font-size:1.6rem}
+
+/* Langkah: urutan sebenarnya, jadi bernomor */
+.s-steps .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;max-width:none;border:0;border-top:2px solid var(--gold);margin-top:40px}
+.s-steps .tl li{padding:26px 0 0}
+.s-steps .tl li:before{left:0;top:-11px;border:4px solid #F0E3F3}
+.s-steps .tl b{font-size:44px;line-height:1}
+.s-steps .tl span{display:block;margin-top:8px}
+
+/* Haji: rundown */
+.s-run .hrun{margin-top:28px}
+.s-haji .hsplit{align-items:start}.s-haji .htxt{position:sticky;top:110px}
+
+@media(max-width:980px){.pg .h2g{grid-template-columns:1fr}.pg .h2a{margin:0 auto}.s-steps .tl{grid-template-columns:repeat(2,1fr)}.s-haji .htxt{position:static}}
+@media(max-width:700px){.home .progs .prog{padding:18px}.s-steps .tl{grid-template-columns:1fr;border-top:0;border-left:2px solid var(--gold);gap:0}.s-steps .tl li{padding:0 0 24px 26px}.s-steps .tl li:before{left:-11px;top:6px}.s-figs .fig img{height:220px}.hero2.pg{padding:36px 0 56px}}
+.s-run .hrun li{background:none;border:0;border-top:1px solid var(--line);border-radius:0;padding:22px 0;box-shadow:none}
+.s-run .hdt{background:none;padding:0 0 0 0}
+.s-run .hdt b{font-size:1.7rem}
+.home .s-cta .cta{padding-top:200px}
+@media(max-width:700px){.home .s-cta .cta{padding-top:130px}}
