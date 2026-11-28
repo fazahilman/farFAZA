@@ -479,3 +479,6 @@ h2{font-size:clamp(30px,4vw,44px)}h3{font-size:24px}
 /* logo 30 tahun di header: lebih kecil agar tidak mendominasi */
 .r30 img{height:28px}
 @media(max-width:900px){.r30 img{height:24px}}
+.r30 img{height:38px}.r30{margin-left:0}.bar{gap:6px}
+@media(max-width:900px){.r30 img{height:30px}}
+@media(min-width:901px){.bar .brand{margin-right:auto}.r30{margin-left:10px}.r30 img{height:42px}}
