@@ -238,3 +238,21 @@ body.home .kb-p0 b{color:#6B5878}
 
 /* ===== Kontak dan halaman teks ===== */
 .home .crow small{text-transform:none;letter-spacing:0;font-size:.85rem}
+
+/* ===== Tiket keberangkatan: simetris, rata tengah di bawah lengkungan ===== */
+@media(min-width:701px){
+ body.home .kb{left:28px;right:28px;width:auto;bottom:-38px}
+ body.home .kb-c{display:grid;grid-template-columns:auto 1fr;column-gap:0;padding:14px 18px 14px;border-radius:18px;align-items:center}
+ body.home .kb-h{grid-column:1/3;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid #EADFEF}
+ body.home .kb-d{margin:0;padding-right:18px;flex-direction:column;align-items:flex-start;gap:0}
+ body.home .kb-dn{font-size:3.4rem}
+ body.home .kb-dm{font-size:1rem}
+ body.home .kb-dm small{display:flex;align-items:center;flex-wrap:wrap;gap:2px 6px;font-size:.82rem}
+ body.home .kb-g{margin:0;padding:0 0 0 18px;border-top:0;border-left:2px dashed #D9C6DF;gap:6px}
+ body.home .kb-p{padding:6px 10px;gap:10px}
+ body.home .kb-av{width:38px;height:38px}
+ body.home .kb-av span{font-size:1rem}
+ body.home .kb-p b{font-size:.98rem;line-height:1.2}
+ body.home .kb-p small{font-size:.7rem}
+ body.home .kb-p em{display:none}
+}
